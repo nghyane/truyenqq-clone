@@ -6,7 +6,6 @@ import api from './routers/api'
 import web from './routers/web'
 
 const app = new Elysia()
-
   .use(
     staticPlugin({
       assets: "public/js",

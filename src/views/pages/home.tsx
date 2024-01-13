@@ -1,28 +1,57 @@
 import { BaseHead } from "../components/BaseHead";
 import { BaseBody } from "../components/BaseBody";
+import HomeUpdate from "../components/HomeUpdate";
+import HomeTrending from "../components/HomeTrending";
+import HomeFooter from "../components/HomeFooter";
+import localize from "@/languages";
 
 type HomePageProps = {
-    title: string
+    title: string,
+    trendingMangas: any[],
+    updatedMangas: any[]
 }
 
 const HomePage = ({
     title,
+    trendingMangas,
+    updatedMangas
 }: HomePageProps): JSX.Element => {
     return (
-        <html lang={process.env.APP_LANG} class="h-[100%] w-[100%] fixed overflow-y-scoll">
+        <html lang={process.env.APP_LANG} class="h-auto min-h-full w-full  overflow-y-scoll">
             <BaseHead>
-                <title>{title}</title>
+                <>
+                    <title>{title}</title>
+                </>
             </BaseHead>
 
             <BaseBody>
                 <>
-                    <h1 class="text-4xl font-bold">Home 1</h1>
-                    <p class="text-lg">Welcome to the home page!</p>
+                    <div class="flex gap-[20px] container mt-10 flex-wrap">
+                        <div class="w-full md:w-[calc(100%-320px)]">
+                            <HomeTrending headingText={localize("trending")} mangas={trendingMangas} />
+                            <hr class="my-10" />
+                            <HomeUpdate headingText={localize("new_update")} mangas={updatedMangas} />
+
+                            <div class="flex justify-center mt-10">
+                                <a href="/browse/2" class="bg-primary text-white px-4 py-2 rounded">
+                                    {
+                                        localize("view_all")
+                                    }
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="w-full md:w-[320px]">
+
+                        </div>
+
+                    </div>
+
+                    <HomeFooter />
+
+                    <script src="/public/js/app.js" type="module" />
                 </>
             </BaseBody>
-
-
-
         </html>
     );
 }

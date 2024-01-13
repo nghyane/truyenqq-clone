@@ -1,0 +1,6 @@
+{
+    "watch": ["src"],
+    "ext": ".ts,.js, .tsx, .jsx, .css, .html",
+    "ignore": [],
+    "exec": "bun tailwindcss -i ./src/base.css -o ./public/css/styles.css && bun ./src/index.ts"
+}

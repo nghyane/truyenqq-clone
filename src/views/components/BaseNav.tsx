@@ -1,0 +1,91 @@
+import theme from '@@/src/services/theme';
+
+type DropdownItem = {
+    name: string,
+    to: string,
+}
+
+const BaseNav = () => {
+    const menus = [
+        {
+            name: <svg style={
+                {
+                    display: 'unset',
+                    verticalAlign: 'unset'
+                }
+            } xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z" /></svg>,
+            mobileText: 'Home',
+            to: '/home',
+        },
+        {
+            name: "History",
+            to: "/history",
+        },
+        {
+            name: "Bookmarks",
+            to: "/bookmarks",
+        },
+        {
+            name: 'Genres',
+            isDropdown: true,
+            getDropdownItems: () => {
+                let genres = [] as DropdownItem[];
+
+                theme.genres?.forEach((genre) => {
+                    genres.push({
+                        name: genre.name,
+                        to: `/category/${genre}`,
+                    })
+                });
+
+                return genres;
+            }
+        },
+        {
+            name: "Browse",
+            to: "/browse",
+        },
+     
+
+    ];
+
+
+    return (
+        <nav class="w-full bg-navbar text-navbar-text text-[15px] sticky top-0 z-10">
+            <ul class="container" id="header_left_menu">
+                {menus.map((menu, index) => (
+                    menu.isDropdown ? (
+                        <li class={`lg:float-left menu-hidden h-full cursor-pointer px-[10px] hover:bg-primary-hover`}>
+                            <div class="flex flex-nowrap gap-[2px] h-full">
+                                <p class="uppercase">{menu.name}</p>
+                                <svg class="w-[14px] fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.1018 8C5.02785 8 4.45387 9.2649 5.16108 10.0731L10.6829 16.3838C11.3801 17.1806 12.6197 17.1806 13.3169 16.3838L18.8388 10.0731C19.5459 9.2649 18.972 8 17.898 8H6.1018Z" />
+                                </svg>
+                            </div>
+                            <div class="hidden-menu">
+                                <ul class="flex flex-wrap items-start container p-4 justify-between">
+                                    {menu.getDropdownItems().map((item) => (
+                                        <div class="w-[140px] lg:truncate lg:p-2" style={{ lineHeight: '40px' }}>
+                                            {item.name}
+                                        </div>
+                                    ))}
+                                </ul>
+                            </div>
+                        </li>
+                    ) : (
+                        <li class="lg:float-left menu-hidden px-[10px] hover:bg-primary-hover h-full cursor-pointer ">
+                            <a class="uppercase flex flex-nowrap items-center gap-2 lg:inline-block" href={menu.to}>{menu.name}  {menu?.mobileText && (
+                                <span class="lg:hidden">
+                                    {menu.mobileText}
+                                </span>
+                            )}</a>
+                        </li>
+                    )
+                ))}
+            </ul>
+        </nav>
+
+    );
+}
+
+export default BaseNav;
