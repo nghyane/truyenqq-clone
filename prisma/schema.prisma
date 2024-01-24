@@ -9,72 +9,75 @@ datasource db {
 }
 
 model Manga {
-  id          Int          @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   title       String
-  alternative String?      @db.Text
+  alternative String?    @db.Text
   description String
-  isAdult     Boolean      @default(false) @map("is_adult")
-  isNoindex   Boolean      @default(false) @map("is_noindex")
-  status      Int          @default(1) @db.SmallInt
+  isAdult     Boolean    @default(false) @map("is_adult")
+  isNoindex   Boolean    @default(false) @map("is_noindex")
+  status      Int        @default(1) @db.SmallInt
   image       String
-  createdAt   DateTime     @default(now()) @map("created_at")
-  updatedAt   DateTime     @default(now()) @map("updated_at")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @default(now()) @map("updated_at")
   chapters    Chapter[]
   bookmarks   Bookmark[]
   genres      Genre[]
   tags        Tag[]
   views       MangaView?
+  isPublic      Boolean    @default(false) @map("is_public")
 
   @@index([title], name: "title")
   @@map("mangas")
 }
 
 model Chapter {
-  id        Int      @id @default(autoincrement())
-  title     String
-  index     Int      @default(0)
-  mangaId   Int
-  content   Json?  
-  createdAt DateTime     @default(now()) @map("created_at")
-  updatedAt DateTime     @default(now()) @map("updated_at")
+  id      Int    @id @default(autoincrement())
+  title   String
+  index   Float  @default(0)
+  mangaId Int
+
+  content   Json     @map("content")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  isPublic  Boolean  @default(false) @map("is_public")
 
   manga Manga @relation(fields: [mangaId], references: [id])
-
-
 
   @@index([mangaId], name: "mangaId")
   @@map("chapters")
 }
 
 model MangaView {
-  id        Int @id @default(autoincrement())
-  views     Int @default(0)
-  viewsDay  Int @default(0)
-  viewsWeek Int @default(0)
-  mangaId   Int @unique @map("manga_id")
-  manga   Manga @relation(fields: [mangaId], references: [id])
+  id        Int   @id @default(autoincrement())
+  views     Int   @default(0)
+  viewsDay  Int   @default(0)
+  viewsWeek Int   @default(0)
+  viewsMonth Int  @default(0)
+
+  mangaId   Int   @unique @map("manga_id")
+  manga     Manga @relation(fields: [mangaId], references: [id])
 
   @@map("manga_views")
-} 
+}
 
 model Genre {
-  id        Int          @id @default(autoincrement())
-  name      String       @unique
-  pinned    Boolean      @default(false)
-  createdAt DateTime     @default(now()) @map("created_at")
-  updatedAt DateTime     @default(now()) @map("updated_at")
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  content   String?
+  pinned    Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
   manga     Manga[]
 
   @@map("genres")
 }
 
-
-
 model Tag {
-  id        Int          @id @default(autoincrement())
-  name      String       @unique
+  id      Int     @id @default(autoincrement())
+  name    String  @unique
+  content String?
 
-  manga    Manga[]
+  manga Manga[]
 
   @@map("tags")
 }
@@ -86,9 +89,9 @@ model User {
   password  String
   usename   String
   role      String   @default("user")
-  createdAt DateTime     @default(now()) @map("created_at")
-  updatedAt DateTime     @default(now()) @map("updated_at")
-  Session   Session?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  Session   Session? 
 
   @@map("users")
 }
@@ -96,24 +99,28 @@ model User {
 model Session {
   id        Int      @id @default(autoincrement())
   uuidHash  String   @unique
-  userId    Int      @unique
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime     @default(now()) @map("created_at")
-  updatedAt DateTime     @default(now()) @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  userId Int?   @unique @map("user_id") 
+  user   User?   @relation(fields: [userId], references: [id]) 
 
   bookmarks Bookmark[]
+  
+  @@index([userId], name: "userId")
 
   @@map("sessions")
 }
 
+
 model Bookmark {
-  id        Int      @id @default(autoincrement())
-  mangaId   Int
+  id        Int @id @default(autoincrement())
   sessionId Int
+  mangaId   Int
 
-  manga   Manga   @relation(fields: [mangaId], references: [id])
   session Session @relation(fields: [sessionId], references: [id])
+  manga   Manga   @relation(fields: [mangaId], references: [id])
 
-  @@index([sessionId], name: "sessionId")
+  @@unique([sessionId, mangaId], name: "sessionId_mangaId_unique")
   @@map("bookmarks")
 }

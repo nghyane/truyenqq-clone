@@ -5,7 +5,15 @@ import { staticPlugin } from '@elysiajs/static'
 import api from './routers/api'
 import web from './routers/web'
 
+import refreshViewCron from './crons/refresh-view'
+
 const app = new Elysia()
+  .use(
+    staticPlugin({
+      assets: "public",
+      prefix: "public",
+    })
+  )
   .use(
     staticPlugin({
       assets: "public/js",
@@ -30,14 +38,15 @@ const app = new Elysia()
       prefix: "public/css",
     })
   )
+ 
+app.use(refreshViewCron)
 
 app.use(api)
+
 app.use(html())
 app.use(web)
 
-app.onError(({ code }) => {
-  if (code === 'NOT_FOUND') return 'Route not found :('
-})
+
 
 
 app.listen(3000)

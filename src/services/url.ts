@@ -4,7 +4,7 @@ const titleToSlug = (title: string) => {
     // limit to 100 characters
     return slugify(title, {
         locale: 'ja',
-        remove: /[*+～ー.()'"!:@]/g,
+        remove: /[*+～ー?.()'"!:@]/g,
         lower: true,
         replacement: '-',
     }).slice(0, 150);
@@ -14,4 +14,8 @@ export const mangaUrl = ({title, id} : {title: string, id: number}) => {
     return `/manga/${
         titleToSlug(title)
     }/${id}`;
+}
+
+export const chapterUrl = ({id} : {id: number}) => {
+    return `/read?id=${id}`;
 }

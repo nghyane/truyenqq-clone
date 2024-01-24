@@ -1,16 +1,19 @@
 import MangaPage from "@/views/pages/manga";
 import prisma from "@/services/prisma";
 import { Prisma } from "@prisma/client";
+import { NotFoundError } from "elysia";
 
 export const MangaInclude = Prisma.validator<Prisma.MangaInclude>()({
     chapters: {
         orderBy: {
-            updatedAt: 'desc'
+            index: 'desc'
         },
         select: {
             id: true,
             title: true,
+            index: true,
             updatedAt: true,
+            
         },
     },
     genres: {
@@ -30,6 +33,11 @@ export const MangaInclude = Prisma.validator<Prisma.MangaInclude>()({
             views: true
         }
     },
+    _count: {
+        select: {
+            bookmarks: true
+        }
+    }
 })
 
 export const MangaController =  {
@@ -41,7 +49,11 @@ export const MangaController =  {
                 id: new Number(params.id).valueOf()
             },
             include: MangaInclude
-        }) as any;
+        });
+
+        if (!manga) {
+            throw new NotFoundError();
+        }
 
         return <MangaPage manga={manga} />
     },

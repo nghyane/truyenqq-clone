@@ -1,11 +1,38 @@
 import HomePage from "@/views/pages/home";
-import MangaPage from "@/views/pages/manga";
+
 import prisma from '../services/prisma';
+import { Prisma } from '@prisma/client';
 import { MangaStatus } from '../types/MangaTypes';
+import { Context } from "elysia";
+
+export const MangaSelect = Prisma.validator<Prisma.MangaSelect>()({
+    id: true,
+    title: true,
+    image: true,
+    views: true,
+    chapters: {
+        select: {
+            id: true,
+            title: true,
+            updatedAt: true,
+            mangaId: true,
+        },
+        orderBy: {
+            index: 'desc'
+        },
+        take: 1,
+    },
+    _count: {
+        select: {
+            bookmarks: true
+        }
+    }
+})
 
 const HomeController = {
-    welcome: () => {
-        return <h1>Go to <a href="/home">Home</a></h1>
+    welcome: ({ set }: Context) => {
+        set.status = 301;
+        set.redirect = '/home';
     },
 
     index: async ({ params }: {
@@ -15,7 +42,7 @@ const HomeController = {
     }) => {
         const page = params?.page ? parseInt(params.page) : 1;
 
-        const [trendingMangas, updatedMangas] = await Promise.all([
+        const [trendingMangas, updatedMangas, topDayMangas] = await Promise.all([
             prisma.manga.findMany({
                 orderBy: {
                     views: {
@@ -23,24 +50,7 @@ const HomeController = {
                         
                     }
                 },
-                select: {
-                    id: true,
-                    title: true,
-                    image: true,
-                    views: true,
-                    chapters: {
-                        select: {
-                            id: true,
-                            title: true,
-                            updatedAt: true,
-                            mangaId: true,
-                        },
-                        orderBy: {
-                            updatedAt: 'desc'
-                        },
-                        take: 1,
-                    }
-                },
+                select: MangaSelect,
                 take: 15,
             }),
             prisma.manga.findMany({
@@ -50,55 +60,28 @@ const HomeController = {
                 orderBy: {
                     updatedAt: 'desc'
                 },
-                select: {
-                    id: true,
-                    title: true,
-                    image: true,
-                    views: true,
-                    chapters: {
-                        select: {
-                            id: true,
-                            title: true,
-                            updatedAt: true,
-                            mangaId: true,
-                        },
-                        orderBy: {
-                            updatedAt: 'desc'
-                        },
-                        take: 1,
-                    }
-                },
+                select: MangaSelect,
 
                 skip: (page - 1) * 52,
                 take: 52,
-            })
+            }),
+            prisma.manga.findMany({
+                orderBy: {
+                    views: {
+                        viewsDay: 'desc',
+                    }
+                },
+                select: MangaSelect,
+                take: 10,
+            }),
         ]);
 
-        return <HomePage title="Home Page" trendingMangas={trendingMangas} updatedMangas={updatedMangas} />
+       
+
+        return <HomePage title="Home Page" trendingMangas={trendingMangas} updatedMangas={updatedMangas} topDayMangas={topDayMangas} />
     },
 
-    chapter: async ({ params }: { params: {
-        id: string
-    } }) => {
-
-        const chapter = await prisma.chapter.findUnique({
-            where: {
-                id: new Number(params.id).valueOf()
-            },
-            include: {
-                manga: {
-                    select: {
-                        id: true,
-                        title: true,
-                        image: true,
-                    }
-                }
-            }
-        });
-
-
-        return <h1>Chapter</h1>
-    }
+    
 
 }
 

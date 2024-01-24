@@ -1,10 +1,11 @@
 import BaseHeader from "./BaseHeader";
 import BaseNav from "./BaseNav";
 
-export const BaseBody = ({ children }: { children?: JSX.Element }) => {
+export const BaseBody = ({ children, className }: { children?: JSX.Element | JSX.Element[], className?: string }): JSX.Element => {
     return (
-        <body class="bg-slate-50 flex flex-col justify-center items-center h-full overflow-y-scroll" >
-            
+        <body class={
+            "bg-slate-50 flex flex-col justify-center items-center h-full overflow-y-scroll " + (className ? className : '')
+        } >
             <BaseHeader />
 
             <BaseNav />
@@ -13,6 +14,33 @@ export const BaseBody = ({ children }: { children?: JSX.Element }) => {
                 {children ? children : undefined}
             </main>
 
+
+            <div class="max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg hidden opacity-0  transition-opacity duration-300 fixed top-5 right-5 z-50" id="toast">
+                <div class="flex p-4">
+                    <div class="flex-shrink-0">
+                        <svg class="flex-shrink-0 h-4 w-4 text-blue-500 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                        </svg>
+                    </div>
+                    <div class="ms-3">
+                        <p class="text-sm text-gray-700 dark:text-gray-400" id="toast-message">
+                           
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="fixed bottom-5 right-5 z-50 opacity-40 md:bottom-10 md:right-10">
+                <button id="back-to-top-button" class="bg-black border opacity-0 text-white p-2 rounded-md shadow-lg transition-opacity duration-300">
+
+                    <svg class="fill-current w-4 h-4 m-auto" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 4.5c.28 0 .53.11.71.29l7 7a1.003 1.003 0 0 1 0 1.42.999.999 0 0 1-1.42 0L13 8.41V19a1 1 0 0 1-2 0V8.41l-5.29 5.3a.999.999 0 1 1-1.42-1.42l7-7A.997.997 0 0 1 12 4.5z" />
+                    </svg>
+                </button>
+            </div>
+
+            <script src="/public/js/app.js" type="module" />
         </body>
     );
 }

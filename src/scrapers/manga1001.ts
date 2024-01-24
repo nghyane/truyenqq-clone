@@ -68,11 +68,6 @@ const Manga1001 = async () => {
     }
 
     const collectManga = async (url: string) => {
-        // const { data: html } = await axiosInstance.get(url).catch(() => {
-        //     return {
-        //         data: null
-        //     }
-        // })
         const html = await fetch(url, fetchOptions).then(res => res.text());
 
         if (!html) return null;
@@ -97,11 +92,16 @@ const Manga1001 = async () => {
 
         const chapters = $('.site-main .list-scoll tbody tr a').map((i, el) => {
             const url = $(el).attr('href');
+            const index = $(el).text().match(/第(\d+\.?\d*)話/)?.[1];
 
+            if (typeof index === 'undefined' || isNaN(new Number(index).valueOf())) {
+                return null;
+            }
 
             return {
                 url: decodeURIComponent(BASE_URL + url),
-                title: $(el).text().split('【')[1].split('】')[0]
+                title: '第' + index + '話',
+                index: new Number(index).valueOf(),
             }
         }).get();
 

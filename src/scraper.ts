@@ -136,12 +136,18 @@ for (const urls of urlChunks) {
         await parallelDo(manga.chapters, async (chapter: any) => {
             if (!Manga) return;
 
+            if (typeof chapter.index === 'undefined' || isNaN(new Number(chapter.index).valueOf())) {
+                console.error(`Chapter ${chapter.title} has invalid index!`);
+                return;
+            }
+
             const chapterExists = await prisma.chapter.count({
                 where: {
                     title: chapter.title,
                     mangaId: Manga.id,
                 }
             });
+            
 
             if (chapterExists) {
                 console.log(`Chapter ${chapter.title} exists!`);
@@ -157,6 +163,7 @@ for (const urls of urlChunks) {
             const Chapter = await prisma.chapter.create({
                 data: {
                     title: chapter.title,
+                    index: chapter.index,
                     manga: {
                         connect: {
                             id: Manga.id
