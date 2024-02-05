@@ -2,12 +2,13 @@
     outline: none;
 }
 
-a, button {
+a,
+button {
     cursor: pointer;
 }
 
 body {
-    font-family: 'Noto Sans JP', sans-serif;
+    font-family: "Noto Sans JP", sans-serif;
 }
 
 @tailwind base;
@@ -15,32 +16,32 @@ body {
 @tailwind utilities;
 
 .header-button {
-    @apply rounded-full shadow-sm ;
-    @apply text-sm lg:text-base px-3 lg:px-4 font-medium bg-header-button hover:shadow-md;
+    @apply rounded-full shadow-sm;
+    @apply bg-header-button px-3 text-sm font-medium hover:shadow-md lg:px-4 lg:text-base;
     font-size: inherit;
     color: white;
     display: flex;
     place-items: center;
-    height: 40px
+    height: 40px;
 }
 
 .header-button.no-bg {
     @apply bg-transparent hover:shadow-none;
 }
 
-.header-input { 
-    @apply p-0 pl-4 pr-16 h-[40px] w-full lg:w-[420px] rounded-full border border-[#e0e0e0] text-[#757575] bg-[#f9f9f9];
+.header-input {
+    @apply h-[40px] w-full rounded-full border border-[#e0e0e0] bg-[#f9f9f9] p-0 pl-4 pr-16 text-[#757575] lg:w-[420px];
     font-size: inherit;
     color: inherit;
 }
 
 .search-results {
-    @apply absolute top-[100%] w-full lg:w-[420px] left-0 bg-white;
+    @apply absolute left-0 top-[100%] w-full bg-white lg:w-[420px];
     overflow: hidden;
     position: absolute;
     border-radius: 3px;
     margin-top: 2px;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, .15);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);
     max-height: 400px;
     z-index: 20;
     overflow: auto;
@@ -60,17 +61,15 @@ body {
     overflow-y: auto;
 }
 
-#header_left_menu .menu-hidden:first-child {
+/* #header_left_menu .menu-hidden:first-child {
     display: block!important;
-}
+} */
 
 .hidden-menu {
-    @apply lg:absolute left-0 w-full bg-white text-black z-10;
+    @apply left-0 z-10 w-full bg-white text-black lg:absolute;
     text-align: -webkit-center;
     display: none;
 }
-
-
 
 #header_left_menu li.active {
     @apply lg:bg-white;
@@ -88,14 +87,12 @@ body {
         border-right: solid 1px #ddd;
     }
 
-    #header_left_menu li:hover > .hidden-menu { 
-        display: block!important;
-    }    
+    #header_left_menu li:hover > .hidden-menu {
+        display: block !important;
+    }
 }
 
-
-
-/* 
+/*
     Carousel CSS
 */
 .carousel-trending {
@@ -143,7 +140,7 @@ body {
 }
 
 .loaded {
-    opacity: 1!important;
+    opacity: 1 !important;
 }
 
 .lazy {

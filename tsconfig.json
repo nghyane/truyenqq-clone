@@ -19,8 +19,9 @@
       "@/*": ["./src/*"],
       "@@/*": ["./*"],
       "@components/*": ["./src/views/components/*"],
-      "@views/*": ["./src/views/*"],
+      "@views/*": ["./src/views/*"]
     },
     "plugins": [{ "name": "@kitajs/ts-html-plugin" }]
+    // disable xss check
   }
 }

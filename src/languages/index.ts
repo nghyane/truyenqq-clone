@@ -1,4 +1,4 @@
-import lang from './en.json';
+import lang from "./ja.json";
 
 type LanguageKey = keyof typeof lang;
 

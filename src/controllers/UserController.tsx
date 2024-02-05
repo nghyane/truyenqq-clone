@@ -1,10 +1,24 @@
 import { VerifyContext } from "@/derives/VerifyToken";
 import prisma from "@/services/prisma";
 
-import { MangaButton, MangaButtonFollowed, ChapterButtonFollowed, ChapterButton } from "@/views/components/Bookmark";
+class UserController {
+  getUser = async (ctx: VerifyContext) => {
+    const { id } = ctx.params;
 
-export const UserController = {
-
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        email: true,
+        fullname: true,
+        updatedAt: true,
+        createdAt: true,
+        Session: true,
+      },
+    });
+  };
 }
 
 export default UserController;

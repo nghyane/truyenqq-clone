@@ -1,11 +1,14 @@
 const HomeFooter = () => {
-    return (
-        <footer class="min-h-[100px] bg-primary text-white mt-10">
-            <p class="!block">
-                Copyright © 2021 TruyenQQ. All rights reserved.
-            </p>
-        </footer>
-    )
-}
+  return (
+    <footer class="bg-primary mt-20 flex min-h-[100px] items-center justify-center py-4 text-center text-white">
+      <p class="!block">
+        2021 &copy; All rights reserved.
+        <br />
+        Data collected from internet, we are not responsible for any wrong
+        information.
+      </p>
+    </footer>
+  );
+};
 
 export default HomeFooter;

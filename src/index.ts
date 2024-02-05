@@ -1,18 +1,18 @@
-import { Elysia } from 'elysia'
-import { html } from '@elysiajs/html'
-import { staticPlugin } from '@elysiajs/static'
+import { Elysia } from "elysia";
+import { html } from "@elysiajs/html";
+import { staticPlugin } from "@elysiajs/static";
 
-import api from './routers/api'
-import web from './routers/web'
+import api from "./routers/api";
+import web from "./routers/web";
 
-import refreshViewCron from './crons/refresh-view'
+import refreshViewCron from "./crons/refresh-view";
 
 const app = new Elysia()
   .use(
     staticPlugin({
       assets: "public",
       prefix: "public",
-    })
+    }),
   )
   .use(
     staticPlugin({
@@ -21,7 +21,7 @@ const app = new Elysia()
       headers: {
         "Cache-Control": "max-age=604800",
       },
-    })
+    }),
   )
   .use(
     staticPlugin({
@@ -30,27 +30,24 @@ const app = new Elysia()
       headers: {
         "Cache-Control": "max-age=604800",
       },
-    })
+    }),
   )
   .use(
     staticPlugin({
       assets: "public/css",
       prefix: "public/css",
-    })
-  )
- 
-app.use(refreshViewCron)
+    }),
+  );
 
-app.use(api)
+app.use(refreshViewCron);
 
-app.use(html())
-app.use(web)
+app.use(api);
 
+app.use(html());
+app.use(web);
 
-
-
-app.listen(3000)
+app.listen(3000);
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
 );

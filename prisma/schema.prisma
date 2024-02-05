@@ -41,7 +41,7 @@ model Chapter {
   updatedAt DateTime @default(now()) @map("updated_at")
   isPublic  Boolean  @default(false) @map("is_public")
 
-  manga Manga @relation(fields: [mangaId], references: [id])
+  manga Manga @relation(fields: [mangaId], references: [id], onDelete: Cascade)
 
   @@index([mangaId], name: "mangaId")
   @@map("chapters")
@@ -55,7 +55,7 @@ model MangaView {
   viewsMonth Int  @default(0)
 
   mangaId   Int   @unique @map("manga_id")
-  manga     Manga @relation(fields: [mangaId], references: [id])
+  manga     Manga @relation(fields: [mangaId], references: [id], onDelete: Cascade)
 
   @@map("manga_views")
 }
@@ -87,11 +87,11 @@ model User {
   email     String?  @unique
   fullname  String
   password  String
-  usename   String
+  username   String   @unique
   role      String   @default("user")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
-  Session   Session? 
+  Session   Session?
 
   @@map("users")
 }
@@ -102,24 +102,23 @@ model Session {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @map("updated_at")
 
-  userId Int?   @unique @map("user_id") 
-  user   User?   @relation(fields: [userId], references: [id]) 
+  userId Int?   @unique @map("user_id")
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   bookmarks Bookmark[]
-  
+
   @@index([userId], name: "userId")
 
   @@map("sessions")
 }
-
 
 model Bookmark {
   id        Int @id @default(autoincrement())
   sessionId Int
   mangaId   Int
 
-  session Session @relation(fields: [sessionId], references: [id])
-  manga   Manga   @relation(fields: [mangaId], references: [id])
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  manga   Manga   @relation(fields: [mangaId], references: [id], onDelete: Cascade)
 
   @@unique([sessionId, mangaId], name: "sessionId_mangaId_unique")
   @@map("bookmarks")
