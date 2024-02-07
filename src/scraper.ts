@@ -264,7 +264,7 @@ for (const urls of urlChunks) {
               }),
             );
           } catch (error) {
-            console.error("Error occurred during image upload");
+            console.error("Error occurred during image upload", error);
             return;
           }
 
