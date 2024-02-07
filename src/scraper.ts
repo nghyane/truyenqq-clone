@@ -268,7 +268,6 @@ for (const urls of urlChunks) {
             return;
           }
 
-          // https://tele.image01.workers.dev/?url=
           try {
             images = await Promise.all(
               images.map(async (image: string) => {
@@ -285,7 +284,14 @@ for (const urls of urlChunks) {
                 );
 
                 if (!upload.ok) {
-                  throw new Error(upload.statusText + workerUrl);
+                  throw new Error(
+                    "Failed to upload image" +
+                      upload.statusText +
+                      " " +
+                      workerUrl +
+                      " " +
+                      image,
+                  );
                 }
 
                 const json = await upload.json();
