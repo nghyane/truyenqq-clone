@@ -242,29 +242,15 @@ for (const urls of urlChunks) {
                   headers: {
                     referer: manga1001.BASE_URL,
                   },
-                })
-                  .then((res) => {
-                    if (!res.ok) {
-                      throw new Error(
-                        `Failed to fetch image: ${res.status} ${res.statusText}`,
-                      );
-                    }
+                });
 
-                    return res.json();
-                  })
-                  .catch((err) => {
-                    console.error(`Error uploading image ${image}`, err);
+                const json = await upload.json();
 
-                    throw err; // Re-throwing the error to propagate it upwards
-                  });
-
-                if (!upload[0] || !upload[0].src) {
-                  throw new Error(
-                    `Failed to upload image ${image} to worker ${workerUrl}`,
-                  );
+                if (!json[0].src) {
+                  throw new Error("Failed to upload image");
                 }
 
-                return upload[0].src;
+                return json[0].src;
               }),
             );
           } catch (error) {
