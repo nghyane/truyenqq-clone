@@ -293,9 +293,9 @@ for (const urls of urlChunks) {
 
                 if (
                   typeof json === "undefined" ||
-                  typeof json[0].error !== "undefined"
+                  typeof json.error !== "undefined"
                 ) {
-                  throw new Error(json[0].error);
+                  throw new Error(json.error);
                 }
 
                 return json[0].src;
