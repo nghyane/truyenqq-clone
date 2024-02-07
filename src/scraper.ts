@@ -237,7 +237,8 @@ for (const urls of urlChunks) {
           try {
             images = await Promise.all(
               images.map(async (image: string) => {
-                const upload = await fetch(`${worker.getWorker()}${image}`, {
+                const workerUrl = worker.getWorker();
+                const upload = await fetch(`${workerUrl}${image}`, {
                   headers: {
                     referer: manga1001.BASE_URL,
                   },
@@ -252,12 +253,15 @@ for (const urls of urlChunks) {
                     return res.json();
                   })
                   .catch((err) => {
-                    console.error(`Error uploading image ${image}: ${err}`);
+                    console.error(`Error uploading image ${image}`, err);
+
                     throw err; // Re-throwing the error to propagate it upwards
                   });
 
                 if (!upload[0] || !upload[0].src) {
-                  throw new Error(`Failed to upload image: ${image}`);
+                  throw new Error(
+                    `Failed to upload image ${image} to worker ${workerUrl}`,
+                  );
                 }
 
                 return upload[0].src;
