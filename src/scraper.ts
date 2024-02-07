@@ -93,6 +93,8 @@ const worker = new Picker([
   "https://tele.image08.workers.dev/?url=",
   "https://tele.image09.workers.dev/?url=",
   "https://tele.image10.workers.dev/?url=",
+  "https://tele.image11.workers.dev/?url=",
+  "https://tele.image12.workers.dev/?url=",
 ]);
 
 const imgProxy = new Picker([
