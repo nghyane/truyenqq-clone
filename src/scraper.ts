@@ -285,12 +285,7 @@ for (const urls of urlChunks) {
 
                 if (!upload.ok) {
                   throw new Error(
-                    "Failed to upload image" +
-                      upload.statusText +
-                      " " +
-                      workerUrl +
-                      " " +
-                      image,
+                    upload.statusText + " " + workerUrl + " " + image,
                   );
                 }
 
