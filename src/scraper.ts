@@ -1,4 +1,5 @@
 import { MangaStatus } from "./types/MangaTypes";
+import { ContentType } from "./types/MangaTypes";
 
 import { parallelMap, parallelDo } from "@@/src/lib/parallel";
 // import Manga1001 from "@@/src/scrapers/manga1001";
@@ -7,7 +8,7 @@ import Scraper from "@@/src/scrapers/hachiraw";
 import prisma from "@@/src/services/prisma";
 import { Prisma } from "@prisma/client";
 
-const NUMBER_OF_PAGES = 179;
+const NUMBER_OF_PAGES = 2;
 const NUMBER_OF_PARALLEL_REQUESTS = 20; // 20 page requests at a time to get manga urls
 
 const NUMBER_OF_PARALLEL_REQUESTS_CHAPTERS = 20; //20 ^ 2 = 400 chapter requests at a time
@@ -197,9 +198,42 @@ for (const urls of urlChunks) {
             return;
           }
 
-          const images = await manga1001.collectChapter(chapter.url);
+          let images = await manga1001.collectChapter(chapter.url);
 
           if (!images) {
+            return;
+          }
+
+          // https://tele.image01.workers.dev/?url=
+          try {
+            images = await Promise.all(
+              images.map(async (image: string) => {
+                const upload = await fetch(
+                  `https://tele.image01.workers.dev/?url=${image}`,
+                )
+                  .then((res) => {
+                    if (!res.ok) {
+                      throw new Error(
+                        `Failed to fetch image: ${res.status} ${res.statusText}`,
+                      );
+                    }
+
+                    return res.json();
+                  })
+                  .catch((err) => {
+                    console.error(`Error uploading image ${image}: ${err}`);
+                    throw err; // Re-throwing the error to propagate it upwards
+                  });
+
+                if (!upload[0] || !upload[0].src) {
+                  throw new Error(`Failed to upload image: ${image}`);
+                }
+
+                return upload[0].src;
+              }),
+            );
+          } catch (error) {
+            console.error("Error occurred during image upload");
             return;
           }
 
@@ -214,7 +248,7 @@ for (const urls of urlChunks) {
               },
               content: [
                 {
-                  type: "hotlink",
+                  type: ContentType.EXTERNAL,
                   data: images,
                 },
               ] as Prisma.JsonArray,
@@ -222,6 +256,8 @@ for (const urls of urlChunks) {
               updatedAt: new Date(),
             },
           });
+
+          console.log(`Chapter ${Chapter.title} created!`);
         },
         NUMBER_OF_PARALLEL_REQUESTS_CHAPTERS,
       );

@@ -33,16 +33,19 @@ const ChapterPage = ({
   if (content) {
     content.forEach((content) => {
       if (content.type == ContentType.HOTLINK) {
-        Array.isArray(content.data) &&
-          content.data.forEach((url) => {
-            images.push(url);
-          });
+        content.data.forEach((path: string) => {
+          images.push(path);
+        });
       } else if (content.type == ContentType.SELFHOSTED) {
         const total = content.data.total;
 
         for (let i = 1; i <= total; i++) {
           images.push(content.data.url.replace("{page}", i.toString()));
         }
+      } else if (content.type == ContentType.EXTERNAL) {
+        content.data.forEach((path: string) => {
+          images.push(`https://tl.dnmanga.one${path}`);
+        });
       }
     });
   }
