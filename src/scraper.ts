@@ -270,12 +270,16 @@ for (const urls of urlChunks) {
 
           try {
             images = await Promise.all(
-              images.map(async (image: string) => {
+              images.map(async (image: string, index: number) => {
+                if (!Manga) return;
+
                 const workerUrl = worker.pick();
                 const upload = await fetch(
                   `${workerUrl}${encodeURIComponent(
-                    `${imgProxy.pick() + image}&output=jpg&w=900&we`,
-                  )}`,
+                    `${
+                      imgProxy.pick() + encodeURIComponent(image)
+                    }&output=jpg&w=900&we`,
+                  )}&path=${Manga.id}/${chapter.index}/${index}.jpg`,
                   {
                     headers: {
                       referer: manga1001.BASE_URL,

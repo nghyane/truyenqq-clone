@@ -289,8 +289,7 @@ window.App = (() => {
 
     async function loadImageAsync(imageUri) {
       const img = new Image();
-      // img.src = imageUri;
-      img.src = "https://cn.manga1001.workers.dev/" + imageUri;
+      img.src = imageUri;
       img.crossOrigin = "anonymous";
 
       return new Promise((resolve, reject) => {
