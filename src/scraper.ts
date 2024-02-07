@@ -314,27 +314,38 @@ for (const urls of urlChunks) {
             return;
           }
 
-          const Chapter = await prisma.chapter.create({
-            data: {
-              title: chapter.title,
-              index: chapter.index,
-              manga: {
-                connect: {
-                  id: Manga.id,
+          await Promise.all([
+            await prisma.chapter.create({
+              data: {
+                title: chapter.title,
+                index: chapter.index,
+                manga: {
+                  connect: {
+                    id: Manga.id,
+                  },
                 },
+                content: [
+                  {
+                    type: ContentType.EXTERNAL,
+                    data: images,
+                  },
+                ] as Prisma.JsonArray,
+                createdAt: new Date(),
+                updatedAt: new Date(),
               },
-              content: [
-                {
-                  type: ContentType.EXTERNAL,
-                  data: images,
-                },
-              ] as Prisma.JsonArray,
-              createdAt: new Date(),
-              updatedAt: new Date(),
-            },
-          });
+            }),
 
-          console.log(`Chapter ${Chapter.title} created!`);
+            await prisma.manga.update({
+              where: {
+                id: Manga.id,
+              },
+              data: {
+                updatedAt: new Date(),
+              },
+            }),
+          ]);
+
+          console.log(`Chapter ${chapter.title} created!`);
         },
         NUMBER_OF_PARALLEL_REQUESTS_CHAPTERS,
       );
