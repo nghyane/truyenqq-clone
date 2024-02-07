@@ -38,16 +38,47 @@ class LockUrl {
 
 class Picker {
   private urls: string[] = [];
+  private unavailableUrls: string[] = [];
   private index = 0;
 
   constructor(urls: string[]) {
     this.urls = urls;
+
+    this.checkAvailability().then(() => {
+      this.urls = this.urls.filter(
+        (url) => !this.unavailableUrls.includes(url),
+      );
+
+      if (this.urls.length === 0) {
+        process.exit(1);
+      }
+
+      console.info("Available urls: ", this.urls.length);
+    });
   }
 
   public pick() {
     const url = this.urls[this.index];
     this.index = (this.index + 1) % this.urls.length;
     return url;
+  }
+
+  public remove(url: string) {
+    this.urls = this.urls.filter((u) => u !== url);
+  }
+
+  public async checkAvailability() {
+    await Promise.all(
+      this.urls.map(async (url) => {
+        return fetch(url, {
+          method: "HEAD",
+        }).then((res) => {
+          if (res.status === 429 || res.status === 404) {
+            this.unavailableUrls.push(url);
+          }
+        });
+      }),
+    );
   }
 }
 
