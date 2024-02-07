@@ -2,7 +2,7 @@ import { MangaStatus } from "./types/MangaTypes";
 import { ContentType } from "./types/MangaTypes";
 
 import { parallelMap, parallelDo } from "@@/src/lib/parallel";
-// import Manga1001 from "@@/src/scrapers/manga1001";
+
 import Scraper from "@@/src/scrapers/hachiraw";
 
 import prisma from "@@/src/services/prisma";
@@ -36,34 +36,38 @@ class LockUrl {
   }
 }
 
-class Worker {
-  private workers: string[] = [
-    // "https://tele.image01.workers.dev/?url=",
-    "https://tele.image02.workers.dev/?url=",
-    "https://tele.image03.workers.dev/?url=",
-    "https://tele.image04.workers.dev/?url=",
-    "https://tele.image05.workers.dev/?url=",
-    "https://tele.image06.workers.dev/?url=",
-    "https://tele.image07.workers.dev/?url=",
-    "https://tele.image08.workers.dev/?url=",
-    "https://tele.image09.workers.dev/?url=",
-    "https://tele.image10.workers.dev/?url=",
-  ];
-
+class Picker {
+  private urls: string[] = [];
   private index = 0;
 
-  public getWorker() {
-    const worker = this.workers[this.index];
-    this.index = (this.index + 1) % this.workers.length;
-    return worker;
+  constructor(urls: string[]) {
+    this.urls = urls;
   }
 
-  public length() {
-    return this.workers.length;
+  public pick() {
+    const url = this.urls[this.index];
+    this.index = (this.index + 1) % this.urls.length;
+    return url;
   }
 }
 
-const worker = new Worker();
+const worker = new Picker([
+  "https://tele.image01.workers.dev/?url=",
+  "https://tele.image02.workers.dev/?url=",
+  "https://tele.image03.workers.dev/?url=",
+  "https://tele.image04.workers.dev/?url=",
+  "https://tele.image05.workers.dev/?url=",
+  "https://tele.image06.workers.dev/?url=",
+  "https://tele.image07.workers.dev/?url=",
+  "https://tele.image08.workers.dev/?url=",
+  "https://tele.image09.workers.dev/?url=",
+  "https://tele.image10.workers.dev/?url=",
+]);
+
+const imgProxy = new Picker([
+  "https://im.dnmanga.one/?url=",
+  "https://im2.dnmanga.one/?url=",
+]);
 
 const manga1001 = await Scraper();
 const lockUrl = new LockUrl();
@@ -237,10 +241,10 @@ for (const urls of urlChunks) {
           try {
             images = await Promise.all(
               images.map(async (image: string) => {
-                const workerUrl = worker.getWorker();
+                const workerUrl = worker.pick();
                 const upload = await fetch(
                   `${workerUrl}${encodeURIComponent(
-                    `https://im.dnmanga.one/?url=${image}&output=jpg&w=900&we`,
+                    `${imgProxy.pick() + image}&output=jpg&w=900&we`,
                   )}`,
                   {
                     headers: {
