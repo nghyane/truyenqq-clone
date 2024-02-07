@@ -291,8 +291,11 @@ for (const urls of urlChunks) {
 
                 const json = await upload.json();
 
-                if (!json[0].src) {
-                  throw new Error("Failed to upload image");
+                if (
+                  typeof json === "undefined" ||
+                  typeof json[0].error !== "undefined"
+                ) {
+                  throw new Error(json[0].error);
                 }
 
                 return json[0].src;
