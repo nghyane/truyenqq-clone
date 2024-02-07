@@ -250,7 +250,7 @@ for (const urls of urlChunks) {
                 );
 
                 if (!upload.ok) {
-                  throw new Error("Failed to upload image");
+                  throw new Error(upload.statusText);
                 }
 
                 const json = await upload.json();
