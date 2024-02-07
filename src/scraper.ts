@@ -240,7 +240,7 @@ for (const urls of urlChunks) {
                 const workerUrl = worker.getWorker();
                 const upload = await fetch(
                   `${workerUrl}${encodeURIComponent(
-                    `https://im.dnmanga.one/?url=${image}&output=jpg`,
+                    `https://im.dnmanga.one/?url=${image}&output=jpg&w=900&we`,
                   )}`,
                   {
                     headers: {
