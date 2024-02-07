@@ -36,6 +36,35 @@ class LockUrl {
   }
 }
 
+class Worker {
+  private workers: string[] = [
+    // "https://tele.image01.workers.dev/?url=",
+    "https://tele.image02.workers.dev/?url=",
+    "https://tele.image03.workers.dev/?url=",
+    "https://tele.image04.workers.dev/?url=",
+    "https://tele.image05.workers.dev/?url=",
+    "https://tele.image06.workers.dev/?url=",
+    "https://tele.image07.workers.dev/?url=",
+    "https://tele.image08.workers.dev/?url=",
+    "https://tele.image09.workers.dev/?url=",
+    "https://tele.image10.workers.dev/?url=",
+  ];
+
+  private index = 0;
+
+  public getWorker() {
+    const worker = this.workers[this.index];
+    this.index = (this.index + 1) % this.workers.length;
+    return worker;
+  }
+
+  public length() {
+    return this.workers.length;
+  }
+}
+
+const worker = new Worker();
+
 const manga1001 = await Scraper();
 const lockUrl = new LockUrl();
 
@@ -208,9 +237,7 @@ for (const urls of urlChunks) {
           try {
             images = await Promise.all(
               images.map(async (image: string) => {
-                const upload = await fetch(
-                  `https://tele.image01.workers.dev/?url=${image}`,
-                )
+                const upload = await fetch(`${worker.getWorker()}${image}`)
                   .then((res) => {
                     if (!res.ok) {
                       throw new Error(
