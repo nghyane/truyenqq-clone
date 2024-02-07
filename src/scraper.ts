@@ -237,7 +237,11 @@ for (const urls of urlChunks) {
           try {
             images = await Promise.all(
               images.map(async (image: string) => {
-                const upload = await fetch(`${worker.getWorker()}${image}`)
+                const upload = await fetch(`${worker.getWorker()}${image}`, {
+                  headers: {
+                    referer: manga1001.BASE_URL,
+                  },
+                })
                   .then((res) => {
                     if (!res.ok) {
                       throw new Error(

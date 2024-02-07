@@ -188,6 +188,7 @@ const Hachiraw = async () => {
     collectUrls,
     collectManga,
     collectChapter,
+    BASE_URL,
   };
 };
 
