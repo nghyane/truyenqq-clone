@@ -254,7 +254,7 @@ for (const urls of urlChunks) {
                 );
 
                 if (!upload.ok) {
-                  throw new Error(upload.statusText);
+                  throw new Error(upload.statusText + workerUrl);
                 }
 
                 const json = await upload.json();
@@ -266,8 +266,8 @@ for (const urls of urlChunks) {
                 return json[0].src;
               }),
             );
-          } catch (error) {
-            console.error("Error occurred during image upload", error);
+          } catch (error: any) {
+            console.log("Error occurred during image upload", error);
             return;
           }
 
