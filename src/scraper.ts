@@ -238,11 +238,16 @@ for (const urls of urlChunks) {
             images = await Promise.all(
               images.map(async (image: string) => {
                 const workerUrl = worker.getWorker();
-                const upload = await fetch(`${workerUrl}${image}`, {
-                  headers: {
-                    referer: manga1001.BASE_URL,
+                const upload = await fetch(
+                  `${workerUrl}${encodeURIComponent(
+                    `https://im.dnmanga.one/?url=${image}&output=jpg`,
+                  )}`,
+                  {
+                    headers: {
+                      referer: manga1001.BASE_URL,
+                    },
                   },
-                });
+                );
 
                 const json = await upload.json();
 
