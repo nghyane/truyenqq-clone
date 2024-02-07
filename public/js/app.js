@@ -344,8 +344,12 @@ window.App = (() => {
       threshold: 0, // Visible amount of item shown in relation to root
     });
 
-    // Observe each .page-img element
+    document.querySelector("#viewer").addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+    });
+
     const pageImg = document.querySelectorAll("#viewer .page-img");
+
     pageImg.forEach((item) => {
       observer.observe(item);
     });
