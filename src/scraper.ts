@@ -273,12 +273,16 @@ for (const urls of urlChunks) {
               images.map(async (image: string, index: number) => {
                 if (!Manga) return;
 
+                const isWebp = image.includes(".webp");
+
                 const workerUrl = worker.pick();
                 const upload = await fetch(
                   `${workerUrl}${encodeURIComponent(
-                    `${
-                      imgProxy.pick() + encodeURIComponent(image)
-                    }&output=jpg&w=900&we`,
+                    isWebp
+                      ? `${
+                          imgProxy.pick() + encodeURIComponent(image)
+                        }&output=jpg&w=900&we`
+                      : encodeURIComponent(image),
                   )}&path=${Manga.id}/${chapter.index}/${index}.jpg`,
                   {
                     headers: {
