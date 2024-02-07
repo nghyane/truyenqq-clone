@@ -83,16 +83,16 @@ class Picker {
 }
 
 const worker = new Picker([
-  "https://tele.image01.workers.dev/?url=",
-  "https://tele.image02.workers.dev/?url=",
-  "https://tele.image03.workers.dev/?url=",
-  "https://tele.image04.workers.dev/?url=",
-  "https://tele.image05.workers.dev/?url=",
-  "https://tele.image06.workers.dev/?url=",
-  "https://tele.image07.workers.dev/?url=",
-  "https://tele.image08.workers.dev/?url=",
-  "https://tele.image09.workers.dev/?url=",
-  "https://tele.image10.workers.dev/?url=",
+  // "https://tele.image01.workers.dev/?url=",
+  // "https://tele.image02.workers.dev/?url=",
+  // "https://tele.image03.workers.dev/?url=",
+  // "https://tele.image04.workers.dev/?url=",
+  // "https://tele.image05.workers.dev/?url=",
+  // "https://tele.image06.workers.dev/?url=",
+  // "https://tele.image07.workers.dev/?url=",
+  // "https://tele.image08.workers.dev/?url=",
+  // "https://tele.image09.workers.dev/?url=",
+  // "https://tele.image10.workers.dev/?url=",
   "https://tele.image11.workers.dev/?url=",
   "https://tele.image12.workers.dev/?url=",
 ]);
