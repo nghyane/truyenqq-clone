@@ -249,6 +249,10 @@ for (const urls of urlChunks) {
                   },
                 );
 
+                if (!upload.ok) {
+                  throw new Error("Failed to upload image");
+                }
+
                 const json = await upload.json();
 
                 if (!json[0].src) {
