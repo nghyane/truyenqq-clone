@@ -282,7 +282,7 @@ for (const urls of urlChunks) {
                       ? `${
                           imgProxy.pick() + encodeURIComponent(image)
                         }&output=jpg&w=900&we`
-                      : encodeURIComponent(image),
+                      : image,
                   )}&path=${Manga.id}/${chapter.index}/${index}.jpg`,
                   {
                     headers: {
