@@ -8,7 +8,7 @@ import Scraper from "@@/src/scrapers/hachiraw";
 import prisma from "@@/src/services/prisma";
 import { Prisma } from "@prisma/client";
 
-const NUMBER_OF_PAGES = 2;
+const NUMBER_OF_PAGES = 179;
 const NUMBER_OF_PARALLEL_REQUESTS = 20; // 20 page requests at a time to get manga urls
 
 const NUMBER_OF_PARALLEL_REQUESTS_CHAPTERS = 20; //20 ^ 2 = 400 chapter requests at a time
