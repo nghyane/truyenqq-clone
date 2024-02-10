@@ -185,7 +185,13 @@ for (const urls of urlChunks) {
       const tags = [...manga.tags];
 
       if (!Manga) {
-        const genreAdults = ["エロい", "Ecchi", "エッチ", "アダルト"];
+        const genreAdults = [
+          "エロい",
+          "Ecchi",
+          "エッチ",
+          "アダルト",
+          "ジェンダーベンダー",
+        ];
 
         const genres = manga.genres ? manga.genres : [];
 

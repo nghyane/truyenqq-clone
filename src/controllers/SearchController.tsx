@@ -18,6 +18,14 @@ class SearchController {
           contains: keyword,
           mode: "insensitive", // có thể tìm kiếm không phân biệt hoa thường
         },
+        OR: [
+          {
+            alternative: {
+              contains: keyword,
+              mode: "insensitive",
+            },
+          },
+        ],
       },
       select: MangaSelect,
       take: LIMIT,

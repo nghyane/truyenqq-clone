@@ -315,6 +315,8 @@ window.App = (() => {
 
           const img = await loadImageAsync(imageUri);
 
+          observer.unobserve(item);
+
           const boldUrl = await new Promise((resolve) => {
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
@@ -337,7 +339,6 @@ window.App = (() => {
 
           imgElement.onload = () => {
             URL.revokeObjectURL(boldUrl);
-            observer.unobserve(item);
           };
 
           item.innerHTML = imgElement.outerHTML;
