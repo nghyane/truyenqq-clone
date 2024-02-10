@@ -8,7 +8,7 @@ import Scraper from "@@/src/scrapers/hachiraw";
 import prisma from "@@/src/services/prisma";
 import { Prisma } from "@prisma/client";
 
-const NUMBER_OF_PAGES = 179;
+const NUMBER_OF_PAGES = 1;
 const NUMBER_OF_PARALLEL_REQUESTS = 20; // 20 page requests at a time to get manga urls
 
 const NUMBER_OF_PARALLEL_REQUESTS_CHAPTERS = 20; //20 ^ 2 = 400 chapter requests at a time
@@ -83,24 +83,25 @@ class Picker {
 }
 
 const worker = new Picker([
-  "https://tele.image01.workers.dev/?url=",
-  "https://tele.image02.workers.dev/?url=",
-  "https://tele.image03.workers.dev/?url=",
-  "https://tele.image04.workers.dev/?url=",
-  "https://tele.image05.workers.dev/?url=",
-  "https://tele.image06.workers.dev/?url=",
-  "https://tele.image07.workers.dev/?url=",
-  "https://tele.image08.workers.dev/?url=",
-  "https://tele.image09.workers.dev/?url=",
-  "https://tele.image10.workers.dev/?url=",
-  "https://tele.image11.workers.dev/?url=",
-  "https://tele.image12.workers.dev/?url=",
+  "https://bn.image01.workers.dev/?url=",
+  "https://bn.image02.workers.dev/?url=",
+  "https://bn.image03.workers.dev/?url=",
+  "https://bn.image04.workers.dev/?url=",
+  "https://bn.image05.workers.dev/?url=",
+  "https://bn.image06.workers.dev/?url=",
+  "https://bn.image07.workers.dev/?url=",
+  "https://bn.image08.workers.dev/?url=",
+  "https://bn.image09.workers.dev/?url=",
+  "https://bn.image10.workers.dev/?url=",
+  "https://bn.image11.workers.dev/?url=",
+  "https://bn.image12.workers.dev/?url=",
+  "https://bn.image13.workers.dev/?url=",
 ]);
 
-const imgProxy = new Picker([
-  "https://im.dnmanga.one/?url=",
-  "https://im2.dnmanga.one/?url=",
-]);
+// const imgProxy = new Picker([
+//   "https://im.dnmanga.one/?url=",
+//   "https://im2.dnmanga.one/?url=",
+// ]);
 
 const manga1001 = await Scraper();
 const lockUrl = new LockUrl();
@@ -254,7 +255,7 @@ for (const urls of urlChunks) {
 
           const chapterExists = await prisma.chapter.count({
             where: {
-              title: chapter.title,
+              index: chapter.index,
               mangaId: Manga.id,
             },
           });
@@ -273,19 +274,22 @@ for (const urls of urlChunks) {
           try {
             images = await Promise.all(
               images.map(async (image: string, index: number) => {
-                if (!Manga) return;
+                if (!Manga) throw new Error("Manga not found!");
 
-                const isWebp = image.includes(".webp");
+                // const isWebp = image.includes(".webp");
+                const path = `${Manga.id}/${chapter.index}/${index}.jpg`;
 
                 const workerUrl = worker.pick();
                 const upload = await fetch(
                   `${workerUrl}${encodeURIComponent(
-                    isWebp
-                      ? `${
-                          imgProxy.pick() + encodeURIComponent(image)
-                        }&output=jpg&w=900&we`
-                      : image,
-                  )}&path=${Manga.id}/${chapter.index}/${index}.jpg`,
+                    // isWebp
+                    //   ?
+                    //   `${
+                    //       imgProxy.pick() + encodeURIComponent(image)
+                    //     }&output=jpg&w=900&we`
+                    //   :
+                    image,
+                  )}&path=${path}`,
                   {
                     headers: {
                       referer: manga1001.BASE_URL,
@@ -301,20 +305,28 @@ for (const urls of urlChunks) {
 
                 const json = await upload.json();
 
-                if (
-                  typeof json === "undefined" ||
-                  typeof json.error !== "undefined"
-                ) {
-                  throw new Error(json.error);
+                // if (
+                //   typeof json === "undefined" ||
+                //   typeof json.error !== "undefined"
+                // ) {
+                //   throw new Error(json.error);
+                // }
+
+                // return json[0].src;
+
+                if (json.HttpCode !== 201) {
+                  throw new Error(json.Message);
                 }
 
-                return json[0].src;
+                return "https://storage.dnmanga.one/" + path;
               }),
             );
           } catch (error: any) {
             console.log("Error occurred during image upload", error);
             return;
           }
+
+          console.log(images);
 
           await Promise.all([
             await prisma.chapter.create({
