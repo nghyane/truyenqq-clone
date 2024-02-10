@@ -196,7 +196,7 @@ const ChapterPage = ({
             </div>
           </div>
 
-          <div id="viewer" class="mx-auto w-full max-w-[800px]">
+          <div id="viewer" class="mx-auto w-full max-w-[800px] select-none">
             <div class="relative flex h-full w-full cursor-pointer flex-wrap items-center justify-center  gap-y-2 p-2 py-5">
               <div class="w-full text-center text-white">
                 この章を読むために下にスクロールしてください
@@ -234,7 +234,7 @@ const ChapterPage = ({
             ))}
           </div>
 
-          <div class="chapter-nav mx-auto my-10 flex w-full max-w-[1000px] flex-wrap items-center justify-center gap-5">
+          <div class="chapter-nav mx-auto my-10 flex w-full max-w-[1000px] select-none flex-wrap items-center justify-center gap-5">
             <button class="bg-primary prev-chapter w-[200px] rounded px-4 py-2 text-white">
               Previous
             </button>
