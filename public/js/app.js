@@ -194,6 +194,8 @@ window.App = (() => {
         ).previousElementSibling;
         if (nextChapter) {
           changeChapter({ target: { value: nextChapter.value } });
+        } else {
+          alert("No more chapter");
         }
       });
     });
