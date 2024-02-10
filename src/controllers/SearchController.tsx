@@ -25,6 +25,16 @@ class SearchController {
               mode: "insensitive",
             },
           },
+          {
+            tags: {
+              some: {
+                name: {
+                  contains: keyword,
+                  mode: "insensitive",
+                },
+              },
+            },
+          },
         ],
       },
       select: MangaSelect,
