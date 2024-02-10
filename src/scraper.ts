@@ -8,7 +8,7 @@ import Scraper from "@@/src/scrapers/hachiraw";
 import prisma from "@@/src/services/prisma";
 import { Prisma } from "@prisma/client";
 
-const NUMBER_OF_PAGES = 1;
+const NUMBER_OF_PAGES = 179;
 const NUMBER_OF_PARALLEL_REQUESTS = 20; // 20 page requests at a time to get manga urls
 
 const NUMBER_OF_PARALLEL_REQUESTS_CHAPTERS = 20; //20 ^ 2 = 400 chapter requests at a time
@@ -326,7 +326,7 @@ for (const urls of urlChunks) {
             return;
           }
 
-          console.log(images);
+          // console.log(images);
 
           await Promise.all([
             await prisma.chapter.create({
