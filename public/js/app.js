@@ -295,6 +295,8 @@ window.App = (() => {
         "i0.wp.com/storage.dnmanga.one/mgraw",
       );
 
+      img.crossOrigin = "Anonymous";
+
       img.src = imageUri;
 
       return new Promise((resolve, reject) => {
