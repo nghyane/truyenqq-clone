@@ -314,11 +314,14 @@ for (const urls of urlChunks) {
 
                 // return json[0].src;
 
-                if (json.HttpCode !== 201) {
-                  throw new Error(json.Message);
+                if (
+                  json.HttpCode === 201 &&
+                  json.Message === "File uploaded."
+                ) {
+                  return "https://storage.dnmanga.one/" + path;
                 }
 
-                return "https://storage.dnmanga.one/" + path;
+                throw new Error(json.Message);
               }),
             );
           } catch (error: any) {

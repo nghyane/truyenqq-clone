@@ -289,7 +289,8 @@ window.App = (() => {
 
     async function loadImageAsync(imageUri) {
       const img = new Image();
-      img.src = imageUri;
+      img.src =
+        imageUri + "?AccessKey=a7aee8c2-b397-41f6-b227af2c5c85-e95a-4c73";
       img.crossOrigin = "anonymous";
 
       return new Promise((resolve, reject) => {
@@ -299,14 +300,14 @@ window.App = (() => {
     }
 
     async function handleIntersection(entries, observer) {
-      const promises = entries.map(async (entry, index) => {
+      const promises = entries.map(async (entry) => {
         if (entry.isIntersecting) {
           const item = entry.target;
           const imageUri = item.getAttribute("data-src");
 
           const img = await loadImageAsync(imageUri);
 
-          const boldUrl = await new Promise((resolve, reject) => {
+          const boldUrl = await new Promise((resolve) => {
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
 
