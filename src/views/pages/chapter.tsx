@@ -44,7 +44,14 @@ const ChapterPage = ({
         }
       } else if (content.type == ContentType.EXTERNAL) {
         content.data.forEach((path: string) => {
-          images.push(`https://tl.dnmanga.one${path}`);
+          const url = new URL(path);
+
+          // if has host
+          if (url.host) {
+            images.push(path);
+          } else {
+            images.push(`https://tl.dnmanga.one${path}`);
+          }
         });
       }
     });
