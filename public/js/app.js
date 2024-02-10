@@ -33,12 +33,7 @@ const encrypt = async (data, key) => {
 };
 
 window.App = (() => {
-  const keyElements = [
-    "lo" + "ca" + "ti" + "on",
-    "ho" + "st" + "na" + "me",
-    "concat",
-    "encrypt",
-  ];
+  const keyElements = ["lo" + "ca" + "ti" + "on", "ho" + "st" + "na" + "me"];
 
   const getVisitorToken = async () => {
     if (localStorage.getItem(window.VARIABLES.UUID_HASH) === null) {
@@ -55,7 +50,8 @@ window.App = (() => {
         screen: `${window.screen.width}x${window.screen.height}`,
         uuidHash: localStorage.getItem(window.VARIABLES.UUID_HASH),
       }),
-      window[keyElements[0]][keyElements[1]][keyElements[2]](keyElements[3]),
+
+      keyElements.join(""),
     );
 
     sessionStorage.setItem(

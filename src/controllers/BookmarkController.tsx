@@ -62,8 +62,6 @@ class BookmarkController {
           },
         },
       });
-
-      console.log(user);
     } else {
       await prisma.session.update({
         where: {

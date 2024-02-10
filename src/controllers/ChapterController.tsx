@@ -31,8 +31,6 @@ export const ChapterController = {
       include: ChapterInclude,
     });
 
-    console.log(chapter);
-
     if (!chapter) {
       throw new NotFoundError();
     }
