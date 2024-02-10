@@ -1,5 +1,3 @@
-import puppeteer from "puppeteer";
-
 // curl -x http://135.181.16.141:9999 http://ipinfo.io
 
 import * as cheerio from "cheerio";
