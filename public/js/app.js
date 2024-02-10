@@ -289,6 +289,11 @@ window.App = (() => {
 
     async function loadImageAsync(imageUri) {
       const img = new Image();
+      imageUri = imageUri.replace(
+        "storage.dnmanga.one",
+        "storage.dnmanga.one/mgraw",
+      );
+
       img.src =
         imageUri + "?AccessKey=a7aee8c2-b397-41f6-b227af2c5c85-e95a-4c73";
       img.crossOrigin = "anonymous";
