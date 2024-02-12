@@ -530,14 +530,13 @@ window.App = (() => {
     const menu = document.querySelectorAll(".menu-hidden");
 
     menu.forEach((item) => {
-      // item.style.display = 'block'
       item.classList.toggle("!block");
 
       const hiddenMenu = item.querySelector(".hidden-menu");
       if (hiddenMenu) {
-        // add event listener
-        item.addEventListener("click", (e) => {
+        item.firstElementChild.addEventListener("click", (e) => {
           e.preventDefault();
+
           hiddenMenu.classList.toggle("!block");
         });
       }
