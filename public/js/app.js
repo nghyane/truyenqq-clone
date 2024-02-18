@@ -290,7 +290,7 @@ window.App = (() => {
 
       imageUri = imageUri.replace(
         "storage.dnmanga.one",
-        "i0.wp.com/storage.dnmanga.one/mgraw",
+        "storage.dnmanga.one/mgraw",
       );
 
       img.crossOrigin = "Anonymous";
