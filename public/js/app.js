@@ -252,7 +252,8 @@ window.App = (() => {
       lastScrollY = window.scrollY;
     });
 
-    const response = await fetch("https://cloudflare.com/cdn-cgi/trace");
+    const domain = window.location.hostname.includes("localhost") ? "cloudflare.com" : window.location.hostname;
+    const response = await fetch(`https://${domain}/cdn-cgi/trace`);
     const data = await response.text();
 
     console.log(data);
