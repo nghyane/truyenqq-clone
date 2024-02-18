@@ -288,11 +288,6 @@ window.App = (() => {
     async function loadImageAsync(imageUri) {
       const img = new Image();
 
-      imageUri = imageUri.replace(
-        "storage.dnmanga.one",
-        "storage.dnmanga.one/mgraw",
-      );
-
       img.src = imageUri;
 
       return new Promise((resolve, reject) => {
@@ -304,12 +299,12 @@ window.App = (() => {
     async function handleIntersection(entries, observer) {
       const promises = entries.map(async (entry) => {
         if (entry.isIntersecting) {
+          observer.unobserve(item);
+
           const item = entry.target;
           const imageUri = item.getAttribute("data-src");
 
           const img = await loadImageAsync(imageUri);
-
-          observer.unobserve(item);
 
           img.classList.add("w-full", "h-full");
           item.innerHTML = img.outerHTML;
