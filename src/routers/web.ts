@@ -8,12 +8,14 @@ import LoginController from "@/controllers/LoginController";
 import BrowseController from "@/controllers/BrowseController";
 import NotFoundPage from "@/views/pages/404";
 import SearchController from "@/controllers/SearchController";
+import TagController from "@/controllers/TagController";
 
 const app = new Elysia();
 const bookmark = new BookmarkController();
 const login = new LoginController();
 const browse = new BrowseController();
 const search = new SearchController();
+const tag = new TagController();
 
 app.get("/", HomeController.welcome);
 
@@ -33,6 +35,7 @@ app.post("/login", login.login);
 
 app.get("/browse", browse.index);
 app.get("/search-ajax", search.ajax);
+app.get("/tag/:id", tag.index);
 
 app.onError(({ code, set }) => {
   if (code !== "NOT_FOUND") set.status = "Not Found";

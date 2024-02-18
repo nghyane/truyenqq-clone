@@ -1,4 +1,9 @@
 export const BaseHead = ({ children }: { children?: JSX.Element | JSX.Element[] }): JSX.Element => {
+    const childrenElements = children ? (
+        Array.isArray(children) ? children : [children]
+    ) : null;
+
+
     return (
         <head>
             <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -40,7 +45,12 @@ export const BaseHead = ({ children }: { children?: JSX.Element | JSX.Element[] 
             <link rel="manifest" href="/public/manifest.json" />
             <meta name="theme-color" content="#ffffff"></meta>
 
-            {children ? children : undefined}
+            <meta
+              name="twitter:site"
+              content={"@" + process.env.TWITTER_USERNAME}
+            />
+
+           {childrenElements}
 
             <script type="text/javascript">
                 {`

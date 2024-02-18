@@ -69,11 +69,16 @@ const Hachiraw = async () => {
     const regex =
       /<li class="list-group-item d-md-block">\s*<span class="mlabel"><i class="fa fa-user"><\/i>\s*ほかの名前:\s*<\/span>\s*([^<]+)\s*<\/li>/;
 
-    const alternativeTitles = (html.match(regex)?.[1] || "")
+    let alternativeTitles = (html.match(regex)?.[1] || "")
       .split(",")
       .map((title) => {
         return title.trim();
       });
+
+    alternativeTitles = alternativeTitles.filter((title) => {
+      return !title.includes("Updating");
+    });
+
 
     if (alternativeTitles.length > 0) {
       title = getMainName(alternativeTitles);

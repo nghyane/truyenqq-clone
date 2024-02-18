@@ -15,7 +15,6 @@ type HomePageProps = {
 };
 
 const HomePage = ({
-  title,
   trendingMangas,
   updatedMangas,
   topDayMangas,
@@ -26,14 +25,17 @@ const HomePage = ({
       class="overflow-y-scoll h-auto min-h-full  w-full"
     >
       <BaseHead>
-        <title safe>{title}</title>
+        <title safe>{process.env.HOME_PAGE_TITLE}</title>
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@hentai3t" />
-        <meta name="twitter:title" content="mangarawの代わりはこれが1番" />
+
+        <meta
+          name="twitter:title"
+          content={process.env.HOME_PAGE_TITLE_SOCIAL}
+        />
         <meta
           name="twitter:description"
-          content="mangarawの代わりはこれが1番"
+          content={process.env.HOME_PAGE_DESCRIPTION_SOCIAL}
         />
         <meta
           name="twitter:image"

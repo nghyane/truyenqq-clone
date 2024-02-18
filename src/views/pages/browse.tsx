@@ -25,7 +25,7 @@ const BrowsePage = ({
   page: number;
   context: Context;
 }) => {
-  const title = "Browse";
+  const title = process.env.BROWSE_TITLE;
 
   const totalPage = Math.ceil(count / 20);
   const currentPage = page;
@@ -64,7 +64,8 @@ const BrowsePage = ({
       class="overflow-y-scoll h-auto min-h-full  w-full"
     >
       <BaseHead>
-        <title>{title}</title>
+        <title safe>{title}</title>
+        <meta name="description" content={process.env.BROWSE_DESCRIPTION} />
       </BaseHead>
 
       <BaseBody>
