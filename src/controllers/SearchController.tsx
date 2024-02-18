@@ -14,13 +14,15 @@ class SearchController {
 
     const mangas = await prisma.manga.findMany({
       where: {
-        title: {
-          contains: keyword,
-          mode: "insensitive", // có thể tìm kiếm không phân biệt hoa thường
-        },
         OR: [
           {
             alternative: {
+              contains: keyword,
+              mode: "insensitive",
+            },
+          },
+          {
+            title: {
               contains: keyword,
               mode: "insensitive",
             },
@@ -34,7 +36,7 @@ class SearchController {
                 },
               },
             },
-          },
+          }
         ],
       },
       select: MangaSelect,
