@@ -43,4 +43,4 @@ class ViewCountController {
   };
 }
 
-export default ViewCountController;
+export default new ViewCountController();

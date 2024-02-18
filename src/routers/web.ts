@@ -9,6 +9,7 @@ import BrowseController from "@/controllers/BrowseController";
 import NotFoundPage from "@/views/pages/404";
 import SearchController from "@/controllers/SearchController";
 import TagController from "@/controllers/TagController";
+import ViewCountController from "@/controllers/ViewCountController";
 
 const app = new Elysia();
 const bookmark = new BookmarkController();
@@ -36,6 +37,23 @@ app.post("/login", login.login);
 app.get("/browse", browse.index);
 app.get("/search-ajax", search.ajax);
 app.get("/tag/:id", tag.index);
+
+app.get("/view-count", ViewCountController.mangaViewIncrement);
+
+// admin
+import AdminController from "@/controllers/AdminController";
+
+app.group("/admin", (app) => {
+  app.get("/", AdminController.index);
+  app.post("/check", AdminController.check);
+  app.get("/manga/:id", AdminController.manga);
+  app.post("/manga/:id", AdminController.updateManga);
+
+  app.get("/manga/:id/delete", AdminController.deleteManga);
+  app.get("/manga/:id/add", AdminController.addChap);
+
+  return app;
+});
 
 app.onError(({ code, set }) => {
   if (code !== "NOT_FOUND") set.status = "Not Found";

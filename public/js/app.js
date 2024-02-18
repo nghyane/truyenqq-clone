@@ -357,6 +357,10 @@ window.App = (() => {
     pageImg.forEach((item) => {
       observer.observe(item);
     });
+
+    setTimeout(() => {
+      fetch(`/view-count?mangaId=${window.__INITIAL_STATE__.mangaId}&chapterId=${window.__INITIAL_STATE__.chapterId}`);
+    }, 20000);
   };
 
   const Carousel = async () => {
