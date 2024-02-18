@@ -299,9 +299,9 @@ window.App = (() => {
     async function handleIntersection(entries, observer) {
       const promises = entries.map(async (entry) => {
         if (entry.isIntersecting) {
+          const item = entry.target;
           observer.unobserve(item);
 
-          const item = entry.target;
           const imageUri = item.getAttribute("data-src");
 
           const img = await loadImageAsync(imageUri);
