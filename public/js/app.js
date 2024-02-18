@@ -221,7 +221,6 @@ window.App = (() => {
         chapters.innerHTML = data;
       });
 
-    // onclick
     chapters.addEventListener("change", (e) => {
       if (e.target.value !== window.__INITIAL_STATE__.chapterId) {
         window.location.href = `/read?id=${e.target.value}`;
@@ -253,37 +252,15 @@ window.App = (() => {
       lastScrollY = window.scrollY;
     });
 
-    const botd = await import(
-      "https://cdn.jsdelivr.net/npm/@fingerprintjs/botd@1.9.0/+esm"
-    )
-      .then((FingerprintJS) => FingerprintJS.load())
-      .catch((e) => {
-        document.querySelector("#viewer").innerHTML =
-          '<div class="text-center p-5"><h1 class="text-2xl">Please disable your adblocker and refresh the page.</h1></div>';
-      });
+    const response = await fetch("https://cloudflare.com/cdn-cgi/trace", { cache: "force-cache" });
+    const data = await response.text();
 
-    const isBot = await botd.detect();
-
-    if (isBot.bot !== false) {
-      alert("Please disable your adblocker and refresh the page.");
+    if (!data.includes("loc=JP")) {
+      document.querySelector("#viewer").innerHTML =
+        '<div class="text-center p-5" style="min-height: 100vh;"><h1 class="text-2xl text-white">This content is not available in your country!</h1></div>';
       return;
     }
 
-    function xorEncode(ctx, key) {
-      const imageData = ctx.getImageData(
-        0,
-        0,
-        ctx.canvas.width,
-        ctx.canvas.height,
-      );
-      const data = imageData.data;
-
-      for (let i = 0; i < data.length; i++) {
-        data[i] ^= key.charCodeAt(i % key.length);
-      }
-
-      ctx.putImageData(imageData, 0, 0);
-    }
 
     async function loadImageAsync(imageUri) {
       const img = new Image();
@@ -359,7 +336,9 @@ window.App = (() => {
     });
 
     setTimeout(() => {
-      fetch(`/view-count?mangaId=${window.__INITIAL_STATE__.mangaId}&chapterId=${window.__INITIAL_STATE__.chapterId}`);
+      fetch(
+        `/view-count?mangaId=${window.__INITIAL_STATE__.mangaId}&chapterId=${window.__INITIAL_STATE__.chapterId}`,
+      );
     }, 20000);
   };
 
