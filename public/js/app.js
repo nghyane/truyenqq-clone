@@ -313,6 +313,11 @@ window.App = (() => {
 
           observer.unobserve(item);
 
+          img.classList.add("w-full", "h-full");
+          item.innerHTML = img.outerHTML;
+
+          return;
+
           const boldUrl = await new Promise((resolve) => {
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
