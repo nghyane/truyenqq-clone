@@ -10,7 +10,6 @@ type TagPageProps = {
   mangas: {
     id: number;
     title: string;
-    cover: string;
     tags: {
       id: number;
       name: string;

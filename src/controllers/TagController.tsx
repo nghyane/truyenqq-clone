@@ -31,6 +31,10 @@ class TagController {
       },
     });
 
+    if (!tag) {
+      throw new Error("Tag not found");
+    }
+
     return TagPage({ tag, mangas });
   }
 }
