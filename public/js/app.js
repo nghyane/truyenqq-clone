@@ -252,8 +252,10 @@ window.App = (() => {
       lastScrollY = window.scrollY;
     });
 
-    const response = await fetch("https://cloudflare.com/cdn-cgi/trace", { cache: "force-cache" });
+    const response = await fetch("https://cloudflare.com/cdn-cgi/trace");
     const data = await response.text();
+
+    console.log(data);
 
     if (!data.includes("loc=JP")) {
       document.querySelector("#viewer").innerHTML =
