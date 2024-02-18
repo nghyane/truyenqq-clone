@@ -26,6 +26,7 @@ const HomePage = ({
     >
       <BaseHead>
         <title safe>{process.env.HOME_PAGE_TITLE}</title>
+        <meta name="description" content={process.env.HOME_PAGE_DESCRIPTION} />
 
         <meta name="twitter:card" content="summary_large_image" />
 
