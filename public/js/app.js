@@ -256,8 +256,6 @@ window.App = (() => {
     const response = await fetch(`https://${domain}/cdn-cgi/trace`);
     const data = await response.text();
 
-    console.log(data);
-
     if (!data.includes("loc=JP")) {
       document.querySelector("#viewer").innerHTML =
         '<div class="text-center p-5" style="min-height: 100vh;"><h1 class="text-2xl text-white">This content is not available in your country!</h1></div>';
@@ -477,13 +475,21 @@ window.App = (() => {
 
   const BookmarkInit = async () => {
     const mangaId = window?.__INITIAL_STATE__?.mangaId;
-    const cacheId = sessionStorage.getItem(window.VARIABLES.CACHE_ID) || "";
+    const cacheId = sessionStorage.getItem(window.VARIABLES.CACHE_ID);
+
     const template = window.location.pathname.includes("/manga")
       ? "manga"
       : "chapter";
 
     if (!mangaId || !localStorage.getItem(window.VARIABLES.UUID_HASH)) {
       return;
+    }
+
+    if (!cacheId) {
+      sessionStorage.setItem(
+        window.VARIABLES.CACHE_ID,
+        btoa(Date.now() + localStorage.getItem(window.VARIABLES.UUID_HASH)),
+      );
     }
 
     fetch(
