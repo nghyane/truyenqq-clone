@@ -63,6 +63,11 @@ const MangaPage = ({
         <meta property="og:image" content={manga.image} />
         <meta property="og:url" content={mangaUrl(manga)} />
 
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={manga.description} />
+        <meta name="twitter:image" content={manga.image} />
+
         <link rel="canonical" href={process.env.APP_URL + mangaUrl(manga)} />
 
         <link rel="preload" href={manga.image} as="image" />

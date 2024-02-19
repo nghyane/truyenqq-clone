@@ -96,8 +96,7 @@ const ChapterPage = ({
           />
 
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:site" content={`@${process.env.TWITTER_USERNAME}`} />
-          <meta name="twitter:creator" content={`@${process.env.TWITTER_USERNAME}`} />
+
 
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={title} />
