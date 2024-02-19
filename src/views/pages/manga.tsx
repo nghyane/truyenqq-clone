@@ -27,12 +27,13 @@ const MangaPage = ({
 
   const title =
     index > 0
-      ? manga.title.replace("(Raw – Free)", ` – Raw 【第${index}話】`)
-      : manga.title;
-  const customTags = [manga.title.replace("(Raw – Free)", "Raw Free"), title];
+      ? manga.title + ` – Raw 【第${index}話】`
+      : manga.title + " (Raw – Free)";
+
+  const customTags = [manga.title +  "Raw Free", title];
 
   if (lastChapter) {
-    customTags.push(manga.title.replace("(Raw – Free)", lastChapter.title));
+    customTags.push(manga.title + lastChapter.title);
   }
 
   const breadcrumbs = [
@@ -53,30 +54,38 @@ const MangaPage = ({
       class="overflow-y-scoll h-auto min-h-full  w-full"
     >
       <BaseHead>
-        <>
-          <title safe>{title}</title>
-          <link rel="preload" href={manga.image} as="image" />
+        <title safe>{title}</title>
+        <meta name="description" content={manga.description} />
+        <meta name="keywords" content={customTags.join(", ")} />
 
-          <script type="application/ld+json">
-            {JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              itemListElement: breadcrumbs.map((breadcrumb, index) => ({
-                "@type": "ListItem",
-                position: index + 1,
-                name: breadcrumb.name,
-                item: breadcrumb.url,
-              })),
-            })}
-          </script>
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={manga.description} />
+        <meta property="og:image" content={manga.image} />
+        <meta property="og:url" content={mangaUrl(manga)} />
 
-          <script type="text/javascript">
-            {`window.__INITIAL_STATE__ =${JSON.stringify({
-              mangaId: manga.id,
-              chapterId: null,
-            })}`}
-          </script>
-        </>
+        <link rel="canonical" href={process.env.APP_URL + mangaUrl(manga)} />
+
+        <link rel="preload" href={manga.image} as="image" />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: breadcrumbs.map((breadcrumb, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: breadcrumb.name,
+              item: breadcrumb.url,
+            })),
+          })}
+        </script>
+
+        <script type="text/javascript">
+          {`window.__INITIAL_STATE__ =${JSON.stringify({
+            mangaId: manga.id,
+            chapterId: null,
+          })}`}
+        </script>
       </BaseHead>
 
       <BaseBody>

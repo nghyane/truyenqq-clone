@@ -25,7 +25,7 @@ const ChapterPage = ({
       `【${chapter.title}】 RAW`,
     );
   } else {
-    title = chapter.manga.title + " " + chapter.title;
+    title = chapter.manga.title + `【${chapter.title}】 RAW`
   }
 
   const images: string[] = [];
@@ -79,6 +79,30 @@ const ChapterPage = ({
       <BaseHead>
         <>
           <title safe>{title}</title>
+          <meta name="description" content={title} />
+
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={title} />
+          <meta property="og:image" content={chapter.manga.image} />
+
+          <meta
+            property="og:url"
+            content={process.env.APP_URL + chapterUrl(chapter)}
+          />
+
+          <link
+            rel="canonical"
+            href={process.env.APP_URL + chapterUrl(chapter)}
+          />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content={`@${process.env.TWITTER_USERNAME}`} />
+          <meta name="twitter:creator" content={`@${process.env.TWITTER_USERNAME}`} />
+
+          <meta name="twitter:title" content={title} />
+          <meta name="twitter:description" content={title} />
+
+          <meta name="twitter:image" content={content[0].data[0] || chapter.manga.image} />
 
           <script type="application/ld+json">
             {JSON.stringify({
@@ -92,6 +116,7 @@ const ChapterPage = ({
               })),
             })}
           </script>
+
           <script>
             {`window.__INITIAL_STATE__ = ${JSON.stringify({
               chapterTitle: chapter.title,

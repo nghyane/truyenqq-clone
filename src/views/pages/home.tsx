@@ -28,6 +28,22 @@ const HomePage = ({
         <title safe>{process.env.HOME_PAGE_TITLE}</title>
         <meta name="description" content={process.env.HOME_PAGE_DESCRIPTION} />
 
+        <link rel="canonical" href={process.env.APP_URL + '/home'} />
+
+        <meta
+          property="og:title"
+          content={process.env.HOME_PAGE_TITLE_SOCIAL}
+        />
+
+        <meta
+          property="og:description"
+          content={process.env.HOME_PAGE_DESCRIPTION_SOCIAL}
+        />
+
+        <meta
+          property="og:image"
+          content={process.env.DEFAULT_SOCIAL_IMAGE} />
+
         <meta name="twitter:card" content="summary_large_image" />
 
         <meta
@@ -40,7 +56,7 @@ const HomePage = ({
         />
         <meta
           name="twitter:image"
-          content="https://telegra.ph/file/b2e87380cb72da6609f93.jpg"
+          content={process.env.DEFAULT_SOCIAL_IMAGE}
         />
       </BaseHead>
 

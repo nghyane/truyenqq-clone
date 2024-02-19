@@ -1,12 +1,101 @@
-import Hachiraw from "./scrapers/hachiraw";
+// import Hachiraw from "./scrapers/hachiraw";
 
-const hachiraw = await Hachiraw();
+// const hachiraw = await Hachiraw();
 
-console.log(
-  // await hachiraw.collectGenres(),
-  // await hachiraw.collectUrls(1),
-  await hachiraw.collectManga("https://hachiraw.net/manga/destiny-lovers"),
-  // await hachiraw.collectChapter(
-  //   "https://hachiraw.net/manga/demi-chan-wa-kataritai/chapter-71",
-  // ),
-);
+// console.log(
+//   // await hachiraw.collectGenres(),
+//   // await hachiraw.collectUrls(1),
+//   await hachiraw.collectManga("https://hachiraw.net/manga/destiny-lovers"),
+//   // await hachiraw.collectChapter(
+//   //   "https://hachiraw.net/manga/demi-chan-wa-kataritai/chapter-71",
+//   // ),
+// );
+
+import prisma from "./services/prisma";
+
+const main = async () => {
+  // get all chapters of 1042
+  const chapters = await prisma.chapter.findMany({
+    where: {
+      mangaId: 1042,
+      content: {
+        string_contains: "storage.dnmanga.one",
+        path: [
+           '0', 'data', '0'
+        ],
+      }
+    },
+  });
+
+  if (!chapters) {
+    console.error("No chapters found!");
+    return;
+  }
+
+  let chapWithImages = [];
+
+  for (const chapter of chapters) {
+    if (!Array.isArray(chapter.content)) {
+      return;
+    }
+
+    const firstImage = chapter.content && chapter.content[0]?.data[0];
+
+    console.log(firstImage);
+
+    const chapterId = chapter.id;
+
+    chapWithImages.push({ chapterId, firstImage });
+  }
+
+
+  process.exit(0);
+
+  const limit = 50;
+  const status = [] as { chapterId: number; isErr: boolean }[];
+
+  for (let i = 0; i < chapWithImages.length; i += limit) {
+    const chunk = chapWithImages.slice(i, i + limit);
+    const promises = chunk.map(async ({ chapterId, firstImage }) => {
+      if (!firstImage) {
+        return;
+      }
+
+      let isErr = false;
+
+      await fetch(firstImage, {
+        method: "HEAD",
+      })
+        .then(async (res) => {
+          const contentLength = parseInt(
+            res.headers.get("content-length") || "0",
+          );
+
+          if (contentLength < 146) {
+            console.error(`Chapter ${chapterId} not found!`);
+            isErr = true;
+            return;
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+      status.push({ chapterId, isErr });
+    });
+
+    await Promise.all(promises);
+  }
+
+  await prisma.chapter.deleteMany({
+    where: {
+      id: {
+        in: status.filter((s) => s.isErr).map((s) => s.chapterId),
+      },
+    },
+  });
+
+  console.log("Done!");
+};
+
+await main();
