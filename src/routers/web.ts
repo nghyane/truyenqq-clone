@@ -51,6 +51,7 @@ app.group("/admin", (app) => {
 
   app.get("/manga/:id/delete", AdminController.deleteManga);
   app.get("/manga/:id/add", AdminController.addChap);
+  app.post("/manga/:id/add", AdminController.addChapPost);
 
   return app;
 });

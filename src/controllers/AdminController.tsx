@@ -1,5 +1,6 @@
 import prisma from "@/services/prisma";
 import { Context } from "elysia";
+import { ContentType } from "@/types/MangaTypes";
 
 const TableMangas = async (ctx: Context) => {
   const { page = 1, limit = 20, title } = ctx.query as any;
@@ -29,9 +30,8 @@ const TableMangas = async (ctx: Context) => {
               },
             },
           },
-        }
+        },
       ],
-
     },
   });
 
@@ -283,14 +283,21 @@ class AdminController {
             <label for="title" style={{ width: "100px" }}>
               Title:
             </label>
-            <input type="text" name="title" id="title" style={{ flex: 1 }} />
+            <input type="text" name="title" id="title" style={{ flex: 1 }} placeholder="第14話" />
           </div>
 
           <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
             <label for="index" style={{ width: "100px" }}>
               Index:{" "}
             </label>
-            <input type="text" name="index" id="index" style={{ flex: 1 }} />
+            <input type="text" name="index" id="index" style={{ flex: 1 }} placeholder="1" />
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
+            <label for="file" style={{ width: "100px" }}>
+              File:{" "}
+            </label>
+            <input type="file" name="file" id="file" style={{ flex: 1 }} multiple />
           </div>
 
           <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
@@ -317,9 +324,12 @@ class AdminController {
               });
               `}
             </script>
+
+            <script src="/public/js/admin.js"></script>
           </div>
 
           <br />
+
 
           <button type="submit" style={{ width: "100px", alignSelf: "left" }}>
             Add
@@ -331,6 +341,33 @@ class AdminController {
         </div>
       </>
     );
+  };
+
+  addChapPost = async (ctx: Context) => {
+    this.middleware(ctx);
+
+    const { id } = ctx.params as any;
+    const { title, index, image } = ctx.body as any;
+
+    const content = [
+      {
+        data: image.trim().split("\r\n").map((url: string) => url.trim()),
+        type: ContentType.EXTERNAL,
+      },
+    ];
+
+    await prisma.chapter.create({
+      data: {
+        title,
+        index: parseFloat(index),
+        content: content,
+        mangaId: parseInt(id),
+      },
+    });
+
+
+    ctx.set.redirect = `/admin/manga/${id}`;
+    ctx.set.status = 302;
   };
 }
 
