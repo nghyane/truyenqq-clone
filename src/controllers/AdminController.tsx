@@ -187,7 +187,9 @@ class AdminController {
           }}
         >
           <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
-            <label for="title">Title:</label>
+            <label for="title" style={{ width: "100px" }}>
+              Title:
+            </label>
             <input
               type="text"
               name="title"
@@ -198,7 +200,9 @@ class AdminController {
           </div>
 
           <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
-            <label for="alternative">Alternative:</label>
+            <label for="alternative" style={{ width: "100px" }}>
+              Alternative:
+            </label>
             <input
               type="text"
               name="alternative"
@@ -209,7 +213,9 @@ class AdminController {
           </div>
 
           <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
-            <label for="image">Cover: </label>
+            <label for="image" style={{ width: "100px" }}>
+              Cover:{" "}
+            </label>
             <input
               type="text"
               name="image"
@@ -283,21 +289,39 @@ class AdminController {
             <label for="title" style={{ width: "100px" }}>
               Title:
             </label>
-            <input type="text" name="title" id="title" style={{ flex: 1 }} placeholder="第14話" />
+            <input
+              type="text"
+              name="title"
+              id="title"
+              style={{ flex: 1 }}
+              placeholder="第14話"
+            />
           </div>
 
           <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
             <label for="index" style={{ width: "100px" }}>
               Index:{" "}
             </label>
-            <input type="text" name="index" id="index" style={{ flex: 1 }} placeholder="1" />
+            <input
+              type="text"
+              name="index"
+              id="index"
+              style={{ flex: 1 }}
+              placeholder="1"
+            />
           </div>
 
           <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
             <label for="file" style={{ width: "100px" }}>
               File:{" "}
             </label>
-            <input type="file" name="file" id="file" style={{ flex: 1 }} multiple />
+            <input
+              type="file"
+              name="file"
+              id="file"
+              style={{ flex: 1 }}
+              multiple
+            />
           </div>
 
           <div style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
@@ -330,7 +354,6 @@ class AdminController {
 
           <br />
 
-
           <button type="submit" style={{ width: "100px", alignSelf: "left" }}>
             Add
           </button>
@@ -351,7 +374,10 @@ class AdminController {
 
     const content = [
       {
-        data: image.trim().split("\r\n").map((url: string) => url.trim()),
+        data: image
+          .trim()
+          .split("\r\n")
+          .map((url: string) => url.trim()),
         type: ContentType.EXTERNAL,
       },
     ];
@@ -364,7 +390,6 @@ class AdminController {
         mangaId: parseInt(id),
       },
     });
-
 
     ctx.set.redirect = `/admin/manga/${id}`;
     ctx.set.status = 302;
