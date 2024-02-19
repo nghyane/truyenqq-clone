@@ -48,7 +48,7 @@ const ChapterPage = ({
           if (path.match(/^(http|https):\/\//)) {
             images.push(path);
           } else {
-            images.push(`https://tl.dnmanga.one/${path}`);
+            images.push(`https://tl.dnmanga.one${path}`);
           }
         });
       }
