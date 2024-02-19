@@ -27,7 +27,7 @@ const TagPage = (props: TagPageProps) => {
         <meta name="description" content={`Manga ${tag.name}`} />
       </BaseHead>
       <BaseBody>
-        <div class="container mt-10">
+        <div class="container mt-10 min-h-screen">
           <h1 safe class="text-primary mb-3 text-3xl font-bold">
             #{tag.name}
           </h1>
