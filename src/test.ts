@@ -12,8 +12,9 @@
 // );
 
 import prisma from "./services/prisma";
+import { getMainName} from "./lib/detector";
 
-const main = async () => {
+const removeErrorChap = async () => {
   // get all chapters of 1042
   const chapters = await prisma.chapter.findMany({
     where: {
@@ -48,8 +49,6 @@ const main = async () => {
     chapWithImages.push({ chapterId, firstImage });
   }
 
-
-  process.exit(0);
 
   const limit = 50;
   const status = [] as { chapterId: number; isErr: boolean }[];
@@ -98,4 +97,38 @@ const main = async () => {
   console.log("Done!");
 };
 
+const fixName = async () => {
+  // getMainName
+  const mangas = await prisma.manga.findMany({
+    select: {
+      id: true,
+      title: true,
+      alternative: true,
+    },
+  });
+
+  for (const manga of mangas) {
+    let alternatives = manga.alternative?.split(",") || [];
+    const names = [manga.title, ...alternatives];
+
+    const mainName = getMainName(names);
+
+    alternatives = [...new Set(alternatives)].filter((a) => a !== mainName);
+
+    await prisma.manga.update({
+      where: {
+        id: manga.id,
+      },
+      data: {
+        title: mainName,
+        alternative:  alternatives.join(","),
+      },
+    });
+  }
+
+};
+
+const main = async () => {
+  await fixName();
+}
 await main();
