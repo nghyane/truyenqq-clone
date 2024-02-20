@@ -84,6 +84,8 @@ const Hachiraw = async () => {
       title = getMainName(alternativeTitles);
     }
 
+    title = title.trim();
+
     let description = $(".Content").text();
 
     if (!hasJapanese(description)) {

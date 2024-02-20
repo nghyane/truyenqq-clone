@@ -98,10 +98,6 @@ const worker = new Picker([
   "https://bn.image13.workers.dev/?url=",
 ]);
 
-// const imgProxy = new Picker([
-//   "https://im.dnmanga.one/?url=",
-//   "https://im2.dnmanga.one/?url=",
-// ]);
 
 const manga1001 = await Scraper();
 const lockUrl = new LockUrl();
@@ -171,6 +167,7 @@ for (const urls of urlChunks) {
           title: manga.title,
         },
       });
+
 
       const genres = await prisma.genre.findMany({
         where: {

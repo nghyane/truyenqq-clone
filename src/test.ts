@@ -128,7 +128,29 @@ const fixName = async () => {
 
 };
 
-const main = async () => {
-  await fixName();
+const fixName2 = async () => {
+  // trim all manga name
+  const mangas = await prisma.manga.findMany({
+    select: {
+      id: true,
+      title: true,
+    }
+  });
+
+  for (const manga of mangas) {
+    const title = manga.title.trim();
+
+    await prisma.manga.update({
+      where: {
+        id: manga.id,
+      },
+      data: {
+        title,
+      },
+    });
+
+    console.log(`Updated ${manga.id} to ${title}`);
+  }
 }
-await main();
+
+await fixName2();
