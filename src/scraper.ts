@@ -164,7 +164,10 @@ for (const urls of urlChunks) {
 
       let Manga = await prisma.manga.findFirst({
         where: {
-          title: manga.title,
+          title: {
+            equals: manga.title.trim(),
+            mode: "insensitive",
+          }
         },
       });
 
