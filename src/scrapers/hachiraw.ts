@@ -84,6 +84,10 @@ const Hachiraw = async () => {
       title = getMainName(alternativeTitles);
     }
 
+    alternativeTitles = [...new Set(alternativeTitles)].filter((alt) => {
+      return alt !== title;
+    });
+
     title = title.trim();
 
     let description = $(".Content").text();

@@ -157,7 +157,7 @@ for (const urls of urlChunks) {
 
       const manga = await manga1001.collectManga(url);
 
-      if (!manga) {
+      if (!manga || manga.title === "") {
         console.log(`Manga ${url} not found!`);
         return;
       }
