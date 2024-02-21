@@ -40,9 +40,14 @@ const removeErrorChap = async () => {
       return;
     }
 
-    const firstImage = chapter.content && chapter.content[0]?.data[0];
 
-    console.log(firstImage);
+    const content = chapter.content[0] as any;
+    const firstImage = chapter.content && content?.data[0];
+
+    if (!firstImage) {
+      console.error(`Chapter ${chapter.id} has no images!`);
+      continue;
+    }
 
     const chapterId = chapter.id;
 
