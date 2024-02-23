@@ -1,9 +1,7 @@
 import * as cheerio from "cheerio";
-import fs from "fs";
-
-import ProxyRouting from "@/services/proxy";
 import { getMainName, hasJapanese } from "@/lib/detector";
-// import translate from "google-translate-api-browser";
+
+// import ProxyRouting from "@/services/proxy";
 
 const Hachiraw = async () => {
   const BASE_URL = "https://hachiraw.net";

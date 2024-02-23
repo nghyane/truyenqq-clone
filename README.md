@@ -1,9 +1,12 @@
 # quickstart
 
 To install dependencies:
++ bun
++ nodejs 20
++ prisma
 
 ```bash
-bun install
+bun install & bunx prisma generate
 ```
 
 To run:

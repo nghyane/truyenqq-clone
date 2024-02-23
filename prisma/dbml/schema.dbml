@@ -1,0 +1,115 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table mangas {
+  id Int [pk, increment]
+  title String [not null]
+  alternative String
+  description String [not null]
+  isAdult Boolean [not null, default: false]
+  isNoindex Boolean [not null, default: false]
+  status Int [not null, default: 1]
+  image String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  chapters chapters [not null]
+  bookmarks bookmarks [not null]
+  genres genres [not null]
+  tags tags [not null]
+  views manga_views
+  isPublic Boolean [not null, default: false]
+}
+
+Table chapters {
+  id Int [pk, increment]
+  title String [not null]
+  index Float [not null, default: 0]
+  mangaId Int [not null]
+  content Json [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  isPublic Boolean [not null, default: false]
+  manga mangas [not null]
+}
+
+Table manga_views {
+  id Int [pk, increment]
+  views Int [not null, default: 0]
+  viewsDay Int [not null, default: 0]
+  viewsWeek Int [not null, default: 0]
+  viewsMonth Int [not null, default: 0]
+  mangaId Int [unique, not null]
+  manga mangas [not null]
+}
+
+Table genres {
+  id Int [pk, increment]
+  name String [unique, not null]
+  content String
+  pinned Boolean [not null, default: false]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  manga mangas [not null]
+}
+
+Table tags {
+  id Int [pk, increment]
+  name String [unique, not null]
+  content String
+  manga mangas [not null]
+}
+
+Table users {
+  id Int [pk, increment]
+  email String [unique]
+  fullname String [not null]
+  password String [not null]
+  username String [unique, not null]
+  role String [not null, default: 'user']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  Session sessions
+}
+
+Table sessions {
+  id Int [pk, increment]
+  uuidHash String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  userId Int [unique]
+  user users
+  bookmarks bookmarks [not null]
+}
+
+Table bookmarks {
+  id Int [pk, increment]
+  sessionId Int [not null]
+  mangaId Int [not null]
+  session sessions [not null]
+  manga mangas [not null]
+
+  indexes {
+    (sessionId, mangaId) [unique]
+  }
+}
+
+Table GenreToManga {
+  genresId Int [ref: > genres.id]
+  mangaId Int [ref: > mangas.id]
+}
+
+Table MangaToTag {
+  tagsId Int [ref: > tags.id]
+  mangaId Int [ref: > mangas.id]
+}
+
+Ref: chapters.mangaId > mangas.id [delete: Cascade]
+
+Ref: manga_views.mangaId - mangas.id [delete: Cascade]
+
+Ref: sessions.userId - users.id [delete: Cascade]
+
+Ref: bookmarks.sessionId > sessions.id [delete: Cascade]
+
+Ref: bookmarks.mangaId > mangas.id [delete: Cascade]

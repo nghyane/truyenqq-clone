@@ -91,6 +91,8 @@ const removeErrorChap = async () => {
     await Promise.all(promises);
   }
 
+
+
   await prisma.chapter.deleteMany({
     where: {
       id: {
@@ -158,4 +160,4 @@ const fixName2 = async () => {
   }
 }
 
-await fixName2();
+await removeErrorChap();

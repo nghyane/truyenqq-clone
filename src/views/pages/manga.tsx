@@ -240,13 +240,6 @@ const MangaPage = ({
               </button>
             )}
 
-            <script
-              async
-              src="https://comments.app/js/widget.js?3"
-              data-comments-app-website="jVSRYyxE"
-              data-limit="5"
-            ></script>
-
             <div class="my-6 flex flex-wrap gap-2">
               {manga.tags?.map((tag) => (
                 <a href={`/tag/${tag.id}`}>
