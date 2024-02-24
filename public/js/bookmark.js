@@ -10,7 +10,6 @@ const getBookmarks = async (page = 1) => {
         headers: {
             'Token': await window.App.getVisitorToken(),
         },
-
     });
 
     if (response.status !== 200) {

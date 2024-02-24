@@ -82,6 +82,40 @@ class Picker {
   }
 }
 
+class CloudfareCache {
+    private urls: string[] = [];
+
+
+    constructor(urls = []) {
+        this.urls = urls;
+    }
+
+    public add(url: string) {
+        if (this.urls.includes(url)) return;
+
+        this.urls.push(url);
+    }
+
+
+    async purge() {
+        if (this.urls.length === 0 || !process.env.CLOUDFARE_ZONE_ID || !process.env.CLOUDFARE_EMAIL || !process.env.CLOUDFARE_API_KEY) return;
+
+        await fetch(`https://api.cloudflare.com/client/v4/zones/${process.env.CLOUDFARE_ZONE_ID}/purge_cache`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Auth-Email": process.env.CLOUDFARE_EMAIL,
+                "X-Auth-Key": process.env.CLOUDFARE_API_KEY,
+            },
+            body: JSON.stringify({
+                files: this.urls,
+            }),
+        });
+    }
+
+
+}
+
 const worker = new Picker([
   "https://bn.image01.workers.dev/?url=",
   "https://bn.image02.workers.dev/?url=",

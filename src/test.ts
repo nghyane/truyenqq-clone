@@ -75,7 +75,7 @@ const removeErrorChap = async () => {
             res.headers.get("content-length") || "0",
           );
 
-          if (contentLength < 146) {
+          if (contentLength <= 146) {
             console.error(`Chapter ${chapterId} not found!`);
             isErr = true;
             return;

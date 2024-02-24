@@ -1,5 +1,5 @@
-import { BaseHead } from "../components/BaseHead";
-import { BaseBody } from "../components/BaseBody";
+import { BaseHead } from "@components/BaseHead";
+import { BaseBody } from "@components/BaseBody";
 import { MangaInclude } from "@/controllers/MangaController";
 import { Prisma } from "@prisma/client";
 import { chapterUrl, mangaUrl } from "@/services/url";

@@ -1,10 +1,10 @@
-import { BaseHead } from "../components/BaseHead";
-import { BaseBody } from "../components/BaseBody";
+import { BaseHead } from "@components/BaseHead";
+import { BaseBody } from "@components/BaseBody";
 import { Prisma } from "@prisma/client";
 import { ChapterInclude } from "@/controllers/ChapterController";
 import { Content, ContentType } from "@@/src/types/MangaTypes";
 import { chapterUrl, mangaUrl } from "@/services/url";
-import { ChapterButton } from "../components/Bookmark";
+import { ChapterButton } from "@components/Bookmark";
 
 import localize from "@/languages";
 
@@ -101,7 +101,7 @@ const ChapterPage = ({
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={title} />
 
-          <meta name="twitter:image" content={content[0].data[0] || chapter.manga.image} />
+          <meta name="twitter:image" content={images[0] || chapter.manga.image} />
 
           <script type="application/ld+json">
             {JSON.stringify({
