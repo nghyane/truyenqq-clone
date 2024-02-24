@@ -20,6 +20,10 @@ export const BaseHead = ({
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
+        {
+            process.env.HEAD_TAG ? process.env.HEAD_TAG : null
+        }
+
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link rel="preconnect" href="https://cdn.jsdelivr.net" />
