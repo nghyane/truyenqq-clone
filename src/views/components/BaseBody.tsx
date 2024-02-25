@@ -66,7 +66,9 @@ export const BaseBody = ({
         </button>
       </div>
 
-      <script src="/public/js/app.min.js" type="module" />
+      <script src={
+        process.env.APP_JS
+      } type="module" />
     </body>
   );
 };

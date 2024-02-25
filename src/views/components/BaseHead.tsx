@@ -25,7 +25,9 @@ export const BaseHead = ({
               <link rel="preconnect" href="https://fonts.gstatic.com"/>
               <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
 
-              <link rel="preload" href="/public/css/styles.css" as="style"/>
+              <link rel="preload" href={
+                  process.env.APP_CSS
+              } as="style"/>
 
               <link
                   href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&display=swap"
