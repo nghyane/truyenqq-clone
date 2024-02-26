@@ -7,28 +7,28 @@ Table mangas {
   title String [not null]
   alternative String
   description String [not null]
-  isAdult Boolean [not null, default: false]
-  isNoindex Boolean [not null, default: false]
   status Int [not null, default: 1]
   image String [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
-  chapters chapters [not null]
+  isAdult Boolean [not null, default: false]
+  isNoindex Boolean [not null, default: false]
+  isPublic Boolean [not null, default: false]
   bookmarks bookmarks [not null]
+  chapters chapters [not null]
+  views manga_views
   genres genres [not null]
   tags tags [not null]
-  views manga_views
-  isPublic Boolean [not null, default: false]
 }
 
 Table chapters {
   id Int [pk, increment]
   title String [not null]
-  index Float [not null, default: 0]
   mangaId Int [not null]
   content Json [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
+  index Float [not null, default: 0]
   isPublic Boolean [not null, default: false]
   manga mangas [not null]
 }
@@ -38,18 +38,18 @@ Table manga_views {
   views Int [not null, default: 0]
   viewsDay Int [not null, default: 0]
   viewsWeek Int [not null, default: 0]
-  viewsMonth Int [not null, default: 0]
   mangaId Int [unique, not null]
+  viewsMonth Int [not null, default: 0]
   manga mangas [not null]
 }
 
 Table genres {
   id Int [pk, increment]
   name String [unique, not null]
-  content String
   pinned Boolean [not null, default: false]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
+  content String
   manga mangas [not null]
 }
 
@@ -65,10 +65,10 @@ Table users {
   email String [unique]
   fullname String [not null]
   password String [not null]
-  username String [unique, not null]
   role String [not null, default: 'user']
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
+  username String [unique, not null]
   Session sessions
 }
 
@@ -78,16 +78,16 @@ Table sessions {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
   userId Int [unique]
-  user users
   bookmarks bookmarks [not null]
+  user users
 }
 
 Table bookmarks {
   id Int [pk, increment]
-  sessionId Int [not null]
   mangaId Int [not null]
-  session sessions [not null]
+  sessionId Int [not null]
   manga mangas [not null]
+  session sessions [not null]
 
   indexes {
     (sessionId, mangaId) [unique]
@@ -110,6 +110,6 @@ Ref: manga_views.mangaId - mangas.id [delete: Cascade]
 
 Ref: sessions.userId - users.id [delete: Cascade]
 
-Ref: bookmarks.sessionId > sessions.id [delete: Cascade]
-
 Ref: bookmarks.mangaId > mangas.id [delete: Cascade]
+
+Ref: bookmarks.sessionId > sessions.id [delete: Cascade]
