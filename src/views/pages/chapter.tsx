@@ -274,8 +274,8 @@ const ChapterPage = ({
                 </div>
 
                 <div class="flex flex-wrap justify-center gap-5 w-full mt-4">
-                  <AdsenseSlot className="!w-[calc(50%-10px)]"/>
-                  <AdsenseSlot className="!w-[calc(50%-10px)]"/>
+                  <AdsenseSlot className="lg:!w-[calc(50%-10px)]"/>
+                  <AdsenseSlot className="lg:!w-[calc(50%-10px)]"/>
                 </div>
 
 
