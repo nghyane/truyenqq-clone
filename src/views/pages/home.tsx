@@ -1,11 +1,12 @@
-import { BaseHead } from "../components/BaseHead";
-import { BaseBody } from "../components/BaseBody";
-import HomeUpdate from "../components/HomeUpdate";
-import HomeTrending from "../components/HomeTrending";
-import HomeFooter from "../components/HomeFooter";
+import { BaseHead } from "@components/BaseHead";
+import { BaseBody } from "@components/BaseBody";
+import HomeUpdate from "@components/HomeUpdate";
+import HomeTrending from "@components/HomeTrending";
+import HomeFooter from "@components/HomeFooter";
 import localize from "@/languages";
-import HomeBXH from "../components/HomeBXH";
-import Share from "../components/Share";
+import HomeBXH from "@components/HomeBXH";
+import Share from "@components/Share";
+import AdsenseSlot from "@components/AdsenseSlot";
 
 type HomePageProps = {
   title: string;
@@ -67,6 +68,10 @@ const HomePage = ({
               headingText={localize("trending")}
               mangas={trendingMangas}
             />
+
+
+            <AdsenseSlot className={"mt-10"} />
+
             <hr class="my-10" />
             <HomeUpdate
               headingText={localize("new_update")}

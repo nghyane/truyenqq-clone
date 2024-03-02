@@ -12,6 +12,8 @@ import { dateFormater } from "@/lib/time";
 import { Context } from "elysia";
 import qs from "qs";
 
+import AdsenseSlot from "@components/AdsenseSlot";
+
 const BrowsePage = ({
   mangas,
   count = 0,
@@ -181,7 +183,9 @@ const BrowsePage = ({
             </form>
           </div>
 
-          <ul class="mt-10  grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3 xl:grid-cols-5">
+            <AdsenseSlot className={"mt-10"} />
+
+          <ul class="mt-10 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3 xl:grid-cols-5">
             {mangas.map((manga) => (
               <li>
                 <a href={mangaUrl(manga)} title={manga.title}>
@@ -290,7 +294,11 @@ const BrowsePage = ({
               </a>
             ))}
           </div>
+
+          <AdsenseSlot className={"mt-10"} />
+
         </div>
+
 
         <HomeFooter />
       </BaseBody>

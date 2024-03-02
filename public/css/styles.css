@@ -864,6 +864,10 @@ video {
   height: 100%;
 }
 
+.min-h-96 {
+  min-height: 24rem;
+}
+
 .min-h-\[100px\] {
   min-height: 100px;
 }
@@ -878,6 +882,10 @@ video {
 
 .min-h-screen {
   min-height: 100vh;
+}
+
+.\!w-\[calc\(50\%-10px\)\] {
+  width: calc(50% - 10px) !important;
 }
 
 .w-1\/2 {

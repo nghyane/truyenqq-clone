@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead";
 import Share from "../components/Share";
 
 import localize from "@/languages";
+import AdsenseSlot from "@components/AdsenseSlot";
 
 const HistoryPage = () => (
     <html lang={process.env.APP_LANG} class="h-auto min-h-full w-full  overflow-y-scoll">
@@ -46,6 +47,8 @@ const HistoryPage = () => (
                 </div>
 
                 <div class="w-full md:w-[320px]">
+                    <AdsenseSlot className="mb-5"/>
+
                     <Share />
                 </div>
             </div>

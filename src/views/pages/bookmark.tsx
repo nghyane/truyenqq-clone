@@ -2,6 +2,7 @@ import BaseBody from "../components/BaseBody";
 import BaseHead from "../components/BaseHead";
 import Share from "../components/Share";
 import localize from "@/languages";
+import AdsenseSlot from "@components/AdsenseSlot";
 
 const BookmarkPage = () => (
   <html
@@ -30,6 +31,8 @@ const BookmarkPage = () => (
         </div>
 
         <div class="w-full md:w-[320px]">
+          <AdsenseSlot className="mb-5"/>
+
           <Share />
         </div>
       </div>
