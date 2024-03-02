@@ -295,8 +295,7 @@ const BrowsePage = ({
             ))}
           </div>
 
-          <AdsenseSlot className={"mt-10"} />
-
+          <AdsenseSlot className={"mt-10 !max-w-full overflow-hidden"} />
         </div>
 
 
