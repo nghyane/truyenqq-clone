@@ -227,6 +227,11 @@ const ChapterPage = ({
                 </div>
 
                 <div id="viewer" class="mx-auto w-full max-w-[800px] select-none">
+
+                    {!chapter.manga.isAdult && (
+                        <AdsenseSlot className="mx-auto"/>
+                    )}
+
                     <div
                         class="relative flex h-full w-full cursor-pointer flex-wrap items-center justify-center  gap-y-2 p-2 py-5">
                         <div class="w-full text-center text-white">
@@ -245,9 +250,6 @@ const ChapterPage = ({
                         </svg>
                     </div>
 
-                    {!chapter.manga.isAdult && (
-                        <AdsenseSlot className="mx-auto"/>
-                    )}
 
                     {images.map((url, index) => (
                         <>
