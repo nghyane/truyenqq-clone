@@ -131,7 +131,7 @@ const ChapterPage = ({
             </>
         </BaseHead>
 
-        <BaseBody className="!bg-[#000]">
+        <BaseBody className="!bg-[#000]" disableAds={chapter.manga.isAdult}>
             <div class="container p-0">
                 <div class="mx-auto  flex w-full max-w-[1000px] flex-wrap items-center justify-center">
                     <div class="flex w-full flex-wrap items-center justify-between gap-2 bg-white p-5 text-sm">
@@ -245,12 +245,14 @@ const ChapterPage = ({
                         </svg>
                     </div>
 
-                    <AdsenseSlot className="mx-auto"/>
+                    {!chapter.manga.isAdult && (
+                        <AdsenseSlot className="mx-auto"/>
+                    )}
 
                     {images.map((url, index) => (
                         <>
-
-                            {(index > 0 && index % 3 == 0) && <AdsenseSlot className="mx-auto"/>}
+                            {(index > 0 && index % 3 == 0 && !chapter.manga.isAdult) &&
+                                <AdsenseSlot className="mx-auto"/>}
 
                             <div data-src={url} class="page-img mb-2 h-full w-full">
                                 <div
@@ -273,10 +275,12 @@ const ChapterPage = ({
                     ))}
                 </div>
 
-                <div class="flex flex-wrap justify-center gap-5 w-full mt-4">
-                  <AdsenseSlot className="lg:!w-[calc(50%-10px)]"/>
-                  <AdsenseSlot className="lg:!w-[calc(50%-10px)]"/>
-                </div>
+                {!chapter.manga.isAdult && (
+                    <div class="flex flex-wrap justify-center gap-5 w-full mt-4">
+                        <AdsenseSlot className="lg:!w-[calc(50%-10px)]"/>
+                        <AdsenseSlot className="lg:!w-[calc(50%-10px)]"/>
+                    </div>
+                )}
 
 
                 <div

@@ -12,6 +12,7 @@ export const ChapterInclude = Prisma.validator<Prisma.ChapterInclude>()({
       image: true,
       views: true,
       description: true,
+      isAdult: true,
       tags: {
         select: {
           id: true,

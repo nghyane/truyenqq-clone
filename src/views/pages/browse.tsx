@@ -70,7 +70,7 @@ const BrowsePage = ({
         <meta name="description" content={process.env.BROWSE_DESCRIPTION} />
       </BaseHead>
 
-      <BaseBody>
+      <BaseBody disableAds={context.query.isAdult == "true"}>
         <div class="container">
           <div class="mt-10 bg-white p-4 md:rounded-lg md:px-8 md:shadow">
             <h1 class="mx-auto mb-4 mt-5 w-full gap-2 text-center text-2xl font-semibold">
@@ -183,7 +183,9 @@ const BrowsePage = ({
             </form>
           </div>
 
+          {context.query.isAdult != "true" && (
             <AdsenseSlot className={"mt-10"} />
+          )}
 
           <ul class="mt-10 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3 xl:grid-cols-5">
             {mangas.map((manga) => (
@@ -295,7 +297,9 @@ const BrowsePage = ({
             ))}
           </div>
 
-          <AdsenseSlot className={"mt-10 !max-w-full overflow-hidden container"} />
+          {context.query.isAdult != "true" && (
+              <AdsenseSlot className={"mt-10 !max-w-full overflow-hidden container"} />
+          )}
         </div>
 
 
