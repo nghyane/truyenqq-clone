@@ -1,16 +1,17 @@
-// import Hachiraw from "./scrapers/hachiraw";
+import Scraper from "./scrapers/weloma";
 
-// const hachiraw = await Hachiraw();
+const hachiraw = await Scraper();
 
-// console.log(
-//   // await hachiraw.collectGenres(),
-//   // await hachiraw.collectUrls(1),
-//   await hachiraw.collectManga("https://hachiraw.net/manga/destiny-lovers"),
-//   // await hachiraw.collectChapter(
-//   //   "https://hachiraw.net/manga/demi-chan-wa-kataritai/chapter-71",
-//   // ),
-// );
+console.log(
+  // await hachiraw.collectGenres(),
+  await hachiraw.collectUrls(1),
+  await hachiraw.collectManga("https://weloma.art/4307/"),
+  // await hachiraw.collectChapter(
+  //   "https://hachiraw.net/manga/demi-chan-wa-kataritai/chapter-71",
+  // ),
+);
 
+process.exit(0);
 import prisma from "./services/prisma";
 import { getMainName} from "./lib/detector";
 
