@@ -4,11 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        "primary": "#6252a2",
-        "primary-hover": "#ffffff3d",
-        "header": "#403667",
+        "primary": "#4c657e", // Màu đỏ chủ đạo
+        "primary-hover": "#fff", // Màu đỏ nhạt
+        "header": "#4c657e",
         "header-text": "#ffffff",
-        "header-button": "#584896",
+        "header-button": "#5f7891",
         "navbar": "#e4e4e4",
         "navbar-text": "#000",
         secondary: "#1F2833",

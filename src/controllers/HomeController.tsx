@@ -26,9 +26,9 @@ const HomeController = {
           isAdult: false,
         },
         orderBy: {
-          views: {
-            views: "desc",
-          },
+          bookmarks: {
+            _count: "desc",
+          }
         },
         select: MangaSelect,
         take: 15,
