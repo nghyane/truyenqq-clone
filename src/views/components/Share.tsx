@@ -33,8 +33,6 @@ const Share = () => (
                 />
             </svg>
         </a>
-
-
     </div>
 );
 
