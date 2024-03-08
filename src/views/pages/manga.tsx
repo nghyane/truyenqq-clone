@@ -28,7 +28,7 @@ const MangaPage = ({
 
     const title =
         index > 0
-            ? '漫画 ' + manga.title + ` ${index}話 RAW 全章`
+            ? manga.title + ` – Raw 【第${index}話】`
             : manga.title + " (Raw – Free)";
 
     const customTags = [manga.title + "Raw Free", title];
@@ -71,12 +71,14 @@ const MangaPage = ({
 
             <link rel="canonical" href={process.env.APP_URL + mangaUrl(manga)}/>
 
+            <link rel="preload" href={manga.image} as="image"/>
+
             <meta property="og:locale" content="ja_JP"/>
             <meta property="og:type" content="article"/>
 
-            <meta property="article:tag" content="Mangarawjp"/>
-            <meta property="article:tag" content="漫画rawjp"/>
-            <meta property="article:tag" content="漫画rawjp"/>
+            <meta property="article:tag" content="Manga Raw"/>
+            <meta property="article:tag" content="漫画 raw"/>
+            <meta property="article:tag" content="漫画raw"/>
 
             <meta property="article:section" content={title}/>
 
