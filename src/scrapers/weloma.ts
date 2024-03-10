@@ -1,5 +1,4 @@
 import * as cheerio from "cheerio";
-import { getMainName, hasJapanese } from "@/lib/detector";
 import {MangaStatus} from "@/types/MangaTypes";
 
 
@@ -52,14 +51,12 @@ const Weloma = async () => {
         const html = await fetch(`${BASE_URL}/manga-list.html?listType=pagination&page=${page}`).then((res) => res.text());
         const $ = cheerio.load(html);
 
-        const urls = $(".row-last-update .thumb-item-flow").map((_, el) => {
+        return $(".row-last-update .thumb-item-flow").map((_, el) => {
             const url = $(el).find("a").eq(0).attr("href")
 
 
             return `${BASE_URL}${url}`;
         }).get();
-
-        return urls;
     }
 
     const collectManga = async (url: string) => {
@@ -97,6 +94,15 @@ const Weloma = async () => {
 
         manga.cover = $(".info-cover .thumbnail").attr("src");
 
+        const chapters = $(".chapter-list .row").map((_, el) => {
+            const title = $(el).find("a").text();
+            const url = $(el).find("a").attr("href");
+
+            return {
+                title,
+                url: `${BASE_URL}${url}`
+            }
+        }).get();
 
 
         return manga;
