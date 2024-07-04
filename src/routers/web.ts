@@ -19,9 +19,10 @@ const search = new SearchController();
 const tag = new TagController();
 
 app.get("/", HomeController.welcome);
+app.get("/home", HomeController.welcome);
 
-app.get("/home", HomeController.index);
-app.get("/home/:page", HomeController.index);
+app.get("/home1", HomeController.index);
+app.get("/home1/:page", HomeController.index);
 
 app.get("/manga/:_slug/:id", MangaController.index);
 app.get("/read", ReadController.index);

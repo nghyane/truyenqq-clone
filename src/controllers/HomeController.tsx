@@ -8,7 +8,7 @@ import { MangaSelect } from "../types/PrismaSelect";
 const HomeController = {
   welcome: ({ set }: Context) => {
     set.status = 301;
-    set.redirect = "/home";
+    set.redirect = "/home1";
   },
 
   index: async ({
