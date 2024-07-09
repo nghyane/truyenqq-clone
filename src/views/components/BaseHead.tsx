@@ -143,7 +143,9 @@ export const BaseHead = ({
           </script>
 
 
+          <script async data-cfasync="false" src="https://cdn.pubfuture-ad.com/v2/unit/pt.js" type="text/javascript"></script>
 
+          
       </head>
   );
 };

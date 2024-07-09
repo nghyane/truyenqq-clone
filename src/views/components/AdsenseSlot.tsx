@@ -1,6 +1,6 @@
 const AdsenseSlot = ({ className }: { className?: string }): JSX.Element => {
     return (
-        <div class={`w-full text-center h-auto ${className}`}>
+        <div class={`w-full text-center h-auto ${className} ${process.env.ADSENSE_CLIENT ? '' : 'hidden'}`}>
             <p class="text-gray-500 text-sm p-2">
                 Advertisement
             </p>
