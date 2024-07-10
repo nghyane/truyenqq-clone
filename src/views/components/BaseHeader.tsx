@@ -129,11 +129,7 @@ const BaseHeader = () => {
         </div>
       </header>
 
-      <div id="pf-9771-1">
-        <script>
-          {`window.pubfuturetag = window.pubfuturetag || [];window.pubfuturetag.push({unit: "668ba52600520719a0263131", id: "pf-9771-1"})`}
-        </script>
-      </div>
+      
     </>
   );
 };

@@ -142,8 +142,7 @@ export const BaseHead = ({
               `}
           </script>
 
-
-          <script async data-cfasync="false" src="https://cdn.pubfuture-ad.com/v2/unit/pt.js" type="text/javascript"></script>
+          <meta name="7cfcd4bbf8848da79fcb63ff74ea14ff6bbb51fb" content="7cfcd4bbf8848da79fcb63ff74ea14ff6bbb51fb" />
 
           
       </head>
