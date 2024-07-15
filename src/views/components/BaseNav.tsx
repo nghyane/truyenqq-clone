@@ -11,7 +11,7 @@ const BaseNav = () => {
     {
       name: "homeIcon",
       mobileText: localize("home"),
-      to: "/home",
+      to: "/home1",
     },
     {
       name: localize("history"),

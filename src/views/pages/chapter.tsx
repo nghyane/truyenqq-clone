@@ -59,7 +59,7 @@ const ChapterPage = ({
     const breadcrumbs = [
         {
             name: localize("home"),
-            url: "/home",
+            url: "/home1",
         },
         {
             name: chapter.manga.title,
@@ -169,7 +169,7 @@ const ChapterPage = ({
                             id="chapter-nav"
                         >
                             <a
-                                href="/home"
+                                href="/home1"
                                 class="mr-4 flex flex-nowrap items-center justify-center gap-2 leading-normal text-red-700"
                             >
                                 <svg

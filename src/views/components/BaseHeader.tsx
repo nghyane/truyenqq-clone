@@ -6,7 +6,7 @@ const BaseHeader = () => {
       <header class="bg-header text-header-text w-full">
         <div class="container m-auto flex h-auto w-full items-center p-[10px] lg:h-[58px]">
           <div class="relative flex w-full flex-wrap gap-4 lg:flex-nowrap lg:items-center">
-            <a href="/home" class="self-center text-2xl font-bold">
+            <a href="/home1" class="self-center text-2xl font-bold">
               <div class="block" safe>
                 {process.env.APP_LOGO}
               </div>
