@@ -4,6 +4,9 @@
   ],
   "hints": {
     "apple-touch-icons": "off",
-    "compat-api/html": "off"
+    "compat-api/html": "off",
+    "axe/forms": "off",
+    "button-type": "off",
+    "axe/name-role-value": "off"
   }
 }

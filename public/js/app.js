@@ -252,22 +252,7 @@ window.App = (() => {
             lastScrollY = window.scrollY;
         });
 
-        const domain = window.location.hostname.includes("localhost") ? "cloudflare.com" : window.location.hostname;
-        const response = await fetch(`https://${domain}/cdn-cgi/trace`);
-        const data = await response.text();
-
-        if (!data.includes("loc=JP")) {
-            // document.querySelector("#viewer").innerHTML =
-            //   '<div class="text-center p-5" style="min-height: 100vh;"><h1 class="text-2xl text-white">This content is not available in your country!</h1></div>';
-            // return;
-
-
-            const images = document.querySelectorAll("#viewer .page-img");
-            await images.forEach((item, index) => {
-                item.setAttribute("data-src", `https://picsum.photos/seed/${window.__INITIAL_STATE__.mangaId}-${window.__INITIAL_STATE__.chapterId}-${index}/536/354/`);
-            })
-        }
-
+    
 
         async function loadImageAsync(imageUri) {
             const img = new Image();
@@ -292,34 +277,6 @@ window.App = (() => {
 
                     img.classList.add("w-full", "h-full");
                     item.innerHTML = img.outerHTML;
-
-                    return;
-
-                    const boldUrl = await new Promise((resolve) => {
-                        const canvas = document.createElement("canvas");
-                        const ctx = canvas.getContext("2d");
-
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-
-                        ctx.drawImage(img, 0, 0);
-                        canvas.toBlob((blob) => {
-                            resolve(URL.createObjectURL(blob));
-                        });
-                    });
-
-                    const imgElement = new Image();
-                    imgElement.src = boldUrl;
-                    imgElement.width = img.width;
-                    imgElement.height = img.height;
-
-                    imgElement.classList.add("w-full", "h-full");
-
-                    imgElement.onload = () => {
-                        URL.revokeObjectURL(boldUrl);
-                    };
-
-                    item.innerHTML = imgElement.outerHTML;
                 }
             });
 
@@ -328,7 +285,6 @@ window.App = (() => {
 
         const observer = new IntersectionObserver(handleIntersection, {
             root: null,
-            rootMargin: "800px", // Margin around the root. Values are similar to css property. Unitless values not allowed
             threshold: 0, // Visible amount of item shown in relation to root
         });
 
