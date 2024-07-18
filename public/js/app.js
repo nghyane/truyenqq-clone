@@ -286,6 +286,7 @@ window.App = (() => {
         const observer = new IntersectionObserver(handleIntersection, {
             root: null,
             threshold: 0, // Visible amount of item shown in relation to root
+            rootMargin: "800px", // Margin around the root
         });
 
         document.querySelector("#viewer").addEventListener("contextmenu", (e) => {
