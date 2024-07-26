@@ -31,7 +31,7 @@ const HomeController = {
           }
         },
         select: MangaSelect,
-        take: 15,
+        take: 20,
       }),
       prisma.manga.findMany({
         where: {

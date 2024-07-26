@@ -14,6 +14,16 @@ const titleToSlug = (title: string) => {
 
 
 export const mangaUrl = ({title, id}: { title: string; id: number }) => {
+
+    let replaces = {
+        '呪術廻戦': 'jujutsu-kaisen',
+    } as {[key: string]: string};
+
+
+    for (let key in replaces) {
+        title = title.replace(key, replaces[key]);
+    }
+
     return `/manga/${titleToSlug(title)}/${id}`;
 };
 
