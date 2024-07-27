@@ -5,20 +5,22 @@ import Elysia from "elysia";
 
 const refreshViewCron = new Elysia()
 
+// reset viewsDay every second
+
 
 
 refreshViewCron.use(
     cron({
-    name: 'refreshViewDay',
-    pattern: '0 0 0 * * *',
-    async run() {
-        await prisma.mangaView.updateMany({
-            data: {
-                viewsDay: 0,
-            }
-        })
-    }
-}))
+        name: 'refreshViewDay',
+        pattern: '0 0 0 * * *',
+        async run() {
+            await prisma.mangaView.updateMany({
+                data: {
+                    viewsDay: 0,
+                }
+            })
+        }
+    }))
 
 
 refreshViewCron.use(cron({

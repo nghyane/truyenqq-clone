@@ -2,6 +2,7 @@ import MangaPage from "@/views/pages/manga";
 import prisma from "@/services/prisma";
 import { Prisma } from "@prisma/client";
 import { NotFoundError } from "elysia";
+import { Context } from "elysia";
 
 export const MangaInclude = Prisma.validator<Prisma.MangaInclude>()({
     chapters: {
@@ -13,7 +14,7 @@ export const MangaInclude = Prisma.validator<Prisma.MangaInclude>()({
             title: true,
             index: true,
             updatedAt: true,
-            
+
         },
     },
     genres: {
@@ -38,15 +39,27 @@ export const MangaInclude = Prisma.validator<Prisma.MangaInclude>()({
             bookmarks: true
         }
     }
-})
+});
 
-export const MangaController =  {
-    index: async ({ params }: { params: {
-        id: string
-    } }) => {
+type MangaControllerParams = {
+    params: {
+        id: string;
+    };
+    query: Context['query'];
+};
+
+
+export const MangaController = {
+    index: async ({ params, query }: MangaControllerParams) => {
+        const mangaId = parseInt(params.id, 10);
+
+        if (isNaN(mangaId)) {
+            throw new NotFoundError('Invalid manga ID');
+        }
+
         const manga = await prisma.manga.findUnique({
             where: {
-                id: new Number(params.id).valueOf()
+                id: mangaId
             },
             include: MangaInclude
         });
@@ -58,4 +71,5 @@ export const MangaController =  {
         return <MangaPage manga={manga} />
     },
 }
+
 export default MangaController;

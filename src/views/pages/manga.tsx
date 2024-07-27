@@ -40,7 +40,7 @@ const MangaPage = ({
     const breadcrumbs = [
         {
             name: localize("home"),
-            url: "/home1",
+            url: "/",
         },
         {
             name: manga.title,
