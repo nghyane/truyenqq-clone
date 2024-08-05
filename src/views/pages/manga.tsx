@@ -26,7 +26,7 @@ const MangaPage = ({
 
     const firstChapter = manga?.chapters[manga?.chapters.length - 1];
 
-    const title = manga.title + " – Raw | MangaRaw";
+    const title = manga.title + " – Raw | 漫画raw";
 
     const customTags = [manga.title + " Raw Free", title];
 
