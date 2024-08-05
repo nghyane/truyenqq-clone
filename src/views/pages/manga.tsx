@@ -26,9 +26,9 @@ const MangaPage = ({
 
     const firstChapter = manga?.chapters[manga?.chapters.length - 1];
 
-    const title = manga.title + " raw | mangaraw";
+    const title = manga.title + " – Raw | MangaRaw";
 
-    const customTags = [manga.title + "Raw Free", title];
+    const customTags = [manga.title + " Raw Free", title];
 
     if (lastChapter) {
         customTags.push(manga.title + ` ${index} raw`);
