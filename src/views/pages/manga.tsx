@@ -26,15 +26,12 @@ const MangaPage = ({
 
     const firstChapter = manga?.chapters[manga?.chapters.length - 1];
 
-    const title =
-        index > 0
-            ? manga.title + ` – Raw 【第${index}話】`
-            : manga.title + " (Raw – Free)";
+    const title = manga.title + " raw | mangaraw";
 
     const customTags = [manga.title + "Raw Free", title];
 
     if (lastChapter) {
-        customTags.push(manga.title + lastChapter.title);
+        customTags.push(manga.title + ` ${index} raw`);
     }
 
     const breadcrumbs = [
