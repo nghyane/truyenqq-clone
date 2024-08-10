@@ -49,7 +49,7 @@ class BrowseController {
     const queryPrisma: Prisma.MangaFindManyArgs = {
       where: {
         status: status,
-        isAdult: query?.isAdult === "true",
+        isAdult: query.isAdult ? (query.isAdult === "true" ? true : false) : undefined,
         genres: {
           some: {
             id: {
