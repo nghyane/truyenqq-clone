@@ -1,7 +1,7 @@
 const AdsenseSlot = ({ className }: { className?: string }): JSX.Element => {
     return (
         <div class={`w-full text-center h-auto ${className}`}>
-            <p class="text-gray-500 text-sm p-2">
+            {/* <p class="text-gray-500 text-sm p-2">
                 Advertisement
             </p>
             {
@@ -13,7 +13,7 @@ const AdsenseSlot = ({ className }: { className?: string }): JSX.Element => {
                 </ins>
             <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>`}
+            </script>`} */}
         </div>
     )
 }
