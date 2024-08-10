@@ -36,7 +36,7 @@ const Hachiraw = async () => {
 
   const collectUrls = async (page: Number) => {
     const html = await fetch(
-      `${BASE_URL}/list-manga/${page}`,
+      `${BASE_URL}/list-manga/${page}?order_by=lastest`,
       fetchOptions,
     ).then((res) => res.text());
 

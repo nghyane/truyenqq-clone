@@ -30,6 +30,8 @@ const HomePage = ({
         <meta name="description" content={process.env.HOME_PAGE_DESCRIPTION} />
         <link rel="canonical" href={process.env.APP_URL} />
 
+        <meta property="og:site_name" content="漫画 raw" />
+        
         <meta
           property="og:title"
           content={process.env.HOME_PAGE_TITLE_SOCIAL}
@@ -62,6 +64,9 @@ const HomePage = ({
 
       <BaseBody>
         <div class="container mt-10 flex flex-wrap gap-[20px]">
+          <div class="w-full">
+            <h1 class="text-2xl font-bold">漫画 raw</h1>
+          </div>
           <div class="w-full md:w-[calc(100%-340px)]">
             <HomeTrending
               headingText={localize("trending")}
