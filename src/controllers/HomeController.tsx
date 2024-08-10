@@ -22,9 +22,6 @@ const HomeController = {
 
     const [trendingMangas, updatedMangas, topDayMangas] = await Promise.all([
       prisma.manga.findMany({
-        where: {
-          isAdult: false,
-        },
         orderBy: {
           bookmarks: {
             _count: "desc",
@@ -36,7 +33,6 @@ const HomeController = {
       prisma.manga.findMany({
         where: {
           status: MangaStatus.ONGOING,
-          isAdult: false,
         },
         orderBy: {
           updatedAt: "desc",
@@ -47,9 +43,6 @@ const HomeController = {
         take: 52,
       }),
       prisma.manga.findMany({
-        where: {
-          isAdult: false,
-        },
         orderBy: {
           views: {
             viewsDay: "desc",
