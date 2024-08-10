@@ -121,12 +121,12 @@ const HomeTrending = ({
               </a>
               <div class="mt-2 flex cursor-pointer flex-wrap">
                 <a href={mangaUrl(manga)} class="w-full" title={manga.title}>
-                  <h2
+                  <h3
                     class="hover:text-primary two-lines mb-2 w-full text-[16px] font-medium transition-colors duration-300"
                     safe
                   >
                     {manga.title}
-                  </h2>
+                  </h3>
                 </a>
 
                 {manga.chapters?.length > 0 && (

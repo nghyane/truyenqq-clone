@@ -33,9 +33,9 @@ const HomeUpdate = ({ headingText, mangas }: HomeUpdateProps): JSX.Element => {
           ></path>
         </svg>
 
-        <h1 class="font-medium capitalize" safe>
+        <h2 class="font-medium capitalize" safe>
           {headingText}
-        </h1>
+        </h2>
       </div>
       <ul class="mt-6 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-3 xl:grid-cols-4">
         {mangas.map((manga) => (
@@ -92,12 +92,12 @@ const HomeUpdate = ({ headingText, mangas }: HomeUpdateProps): JSX.Element => {
             </a>
             <div class="mt-2 flex cursor-pointer flex-wrap">
               <a href={mangaUrl(manga)} class="w-full">
-                <h2
+                <h3
                   class="hover:text-primary two-lines mb-2 w-full text-[16px] font-medium transition-colors duration-300"
                   safe
                 >
                   {manga.title}
-                </h2>
+                </h3>
               </a>
 
               {manga.chapters?.length > 0 && (
