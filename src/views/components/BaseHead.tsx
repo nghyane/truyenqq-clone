@@ -120,7 +120,8 @@ export const BaseHead = ({
           />
           <meta name="msapplication-config" content="/public/browserconfig.xml"/>
           <link rel="manifest" href="/public/manifest.json"/>
-          <meta name="theme-color" content="#ffffff"></meta>
+          
+          <meta name="cd15d061cabfba37a92224b7bd8e35effe186731" content="cd15d061cabfba37a92224b7bd8e35effe186731" />
 
           <meta name="twitter:site" content={`@${process.env.TWITTER_USERNAME}`}/>
           <meta
