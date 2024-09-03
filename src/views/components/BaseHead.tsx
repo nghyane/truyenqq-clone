@@ -145,13 +145,14 @@ export const BaseHead = ({
             <meta name="7cfcd4bbf8848da79fcb63ff74ea14ff6bbb51fb" content="7cfcd4bbf8848da79fcb63ff74ea14ff6bbb51fb" />
 
             <script>
-                {`(function(wgjm){
+                {`(function(mhddra){
 var d = document,
     s = d.createElement('script'),
     l = d.scripts[d.scripts.length - 1];
-s.settings = wgjm || {};
-s.src = "\/\/demanding-application.pro\/cxD.9u6KbD2V5il\/SyW\/Qc9WNFTqQ_zrOQTFcnwaO\/Cz0q1oNnDAMb5gN\/zpA-5B";
+s.settings = mhddra || {};
+s.src = "\/\/demanding-application.pro\/chDv9.6Fb\/2Q5GlbSoW-QI9NNLTSUG0MMeDyQf1YM\/ir0t1pNqTYQ-wANJDsUSzH";
 s.async = true;
+s.referrerPolicy = 'no-referrer-when-downgrade';
 l.parentNode.insertBefore(s, l);
 })({})`}
             </script>
